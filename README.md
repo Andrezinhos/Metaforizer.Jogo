@@ -1,0 +1,1 @@
+# Metaforizer.Jogo
