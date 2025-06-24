@@ -3,13 +3,17 @@ using System.Collections.Generic;
 
 namespace Aula1
 {
+    //modo fácil do jogo
     public class Easy
     {
         public void EasyMode()
         {
             bool jogoRolando = true;
             
-            int vidas = 3;
+            int vidas = 5;
+            int pontos = 0;
+
+            //Lista de perguntas
 
             var perguntas = new List<List<string>>() {
             new List<string> {"Eu fico escondido, mas posso ser visto, se quiser me achar olhe no espelho", "1 - Olho", "2 - Orelha", "3 - Nariz", "1"},
@@ -26,8 +30,13 @@ namespace Aula1
 
             while (jogoRolando)
             {
-                Console.Write("CHANCES RESTANTES: ");
-                Console.WriteLine(vidas);
+
+                //Pega Perguntas aleatórias
+                Console.WriteLine("CHANCES RESTANTES: " + vidas);
+
+                //Mostra o número de perguntas respondidas
+                Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
+                
 
                 Random random = new Random();
                 int index = random.Next(perguntas.Count);
@@ -41,12 +50,14 @@ namespace Aula1
                 string respostaJogador = Console.ReadLine().Trim();
                 Console.Clear();
 
+                //verifica se a resposta está correta
                 if (respostaJogador == pergunta[4])
                 {
                     Console.Clear();
                     titulo();
                     Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
                     Console.WriteLine(vidas);
+                    pontos++;
                 }
                 else if (respostaJogador != pergunta[4])
                 {
@@ -60,14 +71,19 @@ namespace Aula1
 
                 if (vidas == 0)
                 {
-                    Console.WriteLine("ERRADO, SORTE NA PRÓXIMA");
+                    Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
                     break;
                 }
 
+                if (pontos == 10)
+                {
+                    Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                    break;
+                }
                 perguntas.RemoveAt(index);
             }
         }
-
+        //titulo do jogo
         static void titulo()
         {
     string title = @"
