@@ -11,11 +11,7 @@ namespace Aula1
             
             int vidas = 3;
 
-            while (jogoRolando)
-            {
-                Console.WriteLine("CHANCES RESTANTES: ", vidas);
-
-             var perguntas =  new List<List<string>>() {
+            var perguntas = new List<List<string>>() {
             new List<string> {"Eu fico escondido, mas posso ser visto, se quiser me achar olhe no espelho", "1 - Olho", "2 - Orelha", "3 - Nariz", "1"},
             new List<string> {"Ando sem pés, falo sem voz, estou em todo lugar, mas não deixo pegadas", "1 - Luz", "2 - Som", "3 - Vento", "3"},
             new List<string> {"Deito-me no papel como tinta que pensa, e dou forma ao que só existia no silêncio", "1 - Borracha", "2 - Caneta", "3 - Livro", "2"},
@@ -27,6 +23,11 @@ namespace Aula1
             new List<string> {"Sou chão que nunca se pisa, e teto que nunca cobre. Habito o meio do que não existe", "1 - Horizonte", "2 - Espelho", "3 - Névoa", "1"},
             new List<string> {"Sou rei que morre a cada instante, mas governa tudo o que é. Nunca volto, mas deixo marcas nos tronos da alma", "1 - Passado", "2 - Tempo", "3 - Destino", "2"}
             };
+
+            while (jogoRolando)
+            {
+                Console.Write("CHANCES RESTANTES: ");
+                Console.WriteLine(vidas);
 
                 Random random = new Random();
                 int index = random.Next(perguntas.Count);
@@ -42,17 +43,16 @@ namespace Aula1
 
                 if (respostaJogador == pergunta[4])
                 {
-                    Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
-                    Console.WriteLine(vidas);
                     Console.Clear();
                     titulo();
-                    
+                    Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
+                    Console.WriteLine(vidas);
                 }
                 else if (respostaJogador != pergunta[4])
                 {
                     Console.Clear();
                     titulo();
-                    Console.WriteLine("ERRADO, TENTE DE NOVO!");
+                    Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
                     Console.WriteLine("----------------------");
                     vidas--;
                     Console.WriteLine(vidas);
