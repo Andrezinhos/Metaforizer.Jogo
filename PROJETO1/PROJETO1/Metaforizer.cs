@@ -6,8 +6,8 @@ namespace Aula1
     {
         static void Main()
         {
-            bool rodando = true;
-
+           
+            bool jogoRolando = false;
             titulo();
 
             Console.WriteLine("Pressione Enter");
@@ -19,7 +19,49 @@ namespace Aula1
             Console.WriteLine("Escolha uma opção:");
             string escolha = Console.ReadLine();
 
-            if (escolha == "2")
+            if (escolha == "1")
+            {
+                Console.Clear();
+                titulo();
+                Console.WriteLine("Escolha a dificuldade: ");
+                Console.WriteLine("Fácil - 1");
+                Console.WriteLine("-----------------------");
+                Console.WriteLine("Médio - 2");
+                Console.WriteLine("-----------------------");
+                Console.WriteLine("Difícil - 3");
+                Console.WriteLine("-----------------------");
+                Console.WriteLine("Caótico - 4");
+                string escolhaDificuldade = Console.ReadLine();
+
+                switch (escolhaDificuldade)
+                {
+                    case "1":
+                        Easy facil = new Easy();
+                        Console.Clear();
+                        titulo();
+                        facil.EasyMode();
+                        break;
+                    case "2":
+                        Medium medio = new Medium();
+                        Console.Clear();
+                        titulo();
+                        medio.MediumMode();
+                        break;
+                    case "3":
+                        Hard dificil = new Hard();
+                        Console.Clear();
+                        titulo();
+                        dificil.HardMode();
+                        break;
+                    case "4":
+                        Chaos caotico = new Chaos();
+                        Console.Clear();
+                        titulo();
+                        caotico.ChaosMode();
+                        break;
+                }
+            }
+            else if (escolha == "2")
             {
                 Console.WriteLine("Configurações ainda não implementadas. Pressione Enter para voltar ao menu principal.");
                 Console.ReadLine();
@@ -33,21 +75,19 @@ namespace Aula1
             }
             else if (escolha == "3")
             {
-                rodando = false;
+                jogoRolando = false;
                 Console.WriteLine("Programa encerrado.");
             }
-            else if (escolha == "1")
-            {
-
-            }
+           
             else
             {
                 Console.WriteLine("Opção inválida. Tente novamente.");
             }
 
-            while (rodando)
+            
+            while (jogoRolando)
             {
-
+                
                 string[,] perguntas = {
             {"Eu fico escondido, mas posso ser visto, se quiser me achar olhe no espelho", "1 - Olho", "2 - Orelha", "3 - Nariz", "1"},
             {"Ando sem pés, falo sem voz, estou em todo lugar, mas não deixo pegadas", "1 - Luz", "2 - Som", "3 - Vento", "3"},
@@ -87,12 +127,13 @@ namespace Aula1
             }
 
 
-
-
-
-
         }
 
+
+        static void dificuldade()
+        {
+ 
+        }
         static void titulo()
         {
             string title = @"
