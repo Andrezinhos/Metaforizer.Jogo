@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 
 namespace Aula1
 {
@@ -34,7 +34,15 @@ namespace Aula1
                 //não tem chances nesse modo
 
                 //tempo do jogo
-                Console.WriteLine("TEMPO RESTANTE: ");
+                Stopwatch tempo = new Stopwatch();
+                tempo.Start();
+                double tempoLimite = 30;
+
+                double tempoRestante = tempoLimite - tempo.Elapsed.TotalSeconds;
+                if (tempoRestante < 0) tempoRestante = 0;
+                Console.WriteLine($"TEMPO RESTANTE: {tempoRestante:F1} segundos");
+
+                Console.WriteLine($"TEMPO RESTANTE: {tempo.Elapsed.TotalSeconds:F1}");
 
                 //Mostra o número de perguntas respondidas
                 Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
@@ -66,9 +74,11 @@ namespace Aula1
                     Console.WriteLine("----------------------");
                 }
 
+               
+
              /*   if ()
                 {
-                    Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
+                    Console.WriteLine("ACABOU SEU TEMPO, VOCÊ NÃO É DIGNO!");
                     break;
                 }
              */
@@ -76,9 +86,12 @@ namespace Aula1
                 {
                     Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
                     break;
+                } else
+                {
+                    Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS: " + pontos);
                 }
 
-                perguntas.RemoveAt(index);
+                    perguntas.RemoveAt(index);
             }
         }
 

@@ -33,10 +33,10 @@ namespace Aula1
 
                 //Pega Perguntas aleatórias
                 Console.WriteLine("CHANCES RESTANTES: " + vidas);
-
+                Console.WriteLine("----------------------");
                 //Mostra o número de perguntas respondidas
                 Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
-                
+                Console.WriteLine("----------------------");
 
                 Random random = new Random();
                 int index = random.Next(perguntas.Count);
@@ -53,20 +53,19 @@ namespace Aula1
                 //verifica se a resposta está correta
                 if (respostaJogador == pergunta[4])
                 {
+                    pontos++;
                     Console.Clear();
                     titulo();
                     Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
-                    Console.WriteLine(vidas);
-                    pontos++;
+                    Console.WriteLine("----------------------");
                 }
                 else if (respostaJogador != pergunta[4])
                 {
+                    vidas--;
                     Console.Clear();
                     titulo();
                     Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
                     Console.WriteLine("----------------------");
-                    vidas--;
-                    Console.WriteLine(vidas);
                 } 
 
                 if (vidas == 0)
