@@ -10,12 +10,16 @@ namespace Aula1
             bool jogoRolando = false;
             titulo();
 
-            Console.WriteLine("Pressione Enter");
+            Console.WriteLine("Pressione qualquer tecla para jogar");
             Console.ReadLine();
+            Console.Clear();
+            titulo();
 
+            Console.WriteLine("----------------------");
             Console.WriteLine("1 - Iniciar Jogo");
             Console.WriteLine("2 - Configurações");
             Console.WriteLine("3 - Sair do jogo");
+            Console.WriteLine("----------------------");
             Console.WriteLine("Escolha uma opção:");
             string escolha = Console.ReadLine();
 
@@ -23,6 +27,7 @@ namespace Aula1
             {
                 Console.Clear();
                 titulo();
+                Console.WriteLine("-----------------------");
                 Console.WriteLine("Escolha a dificuldade: ");
                 Console.WriteLine("Fácil - 1");
                 Console.WriteLine("-----------------------");
@@ -82,6 +87,7 @@ namespace Aula1
             else
             {
                 Console.WriteLine("Opção inválida. Tente novamente.");
+                escolha = Console.ReadLine();
             }
 
             

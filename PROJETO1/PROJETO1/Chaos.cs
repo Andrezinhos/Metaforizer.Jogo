@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Aula1
 {
@@ -28,24 +29,31 @@ namespace Aula1
             new List<string> {"Sou rei que morre a cada instante, mas governa tudo o que é. Nunca volto, mas deixo marcas nos tronos da alma", "1 - Passado", "2 - Tempo", "3 - Destino", "2"}
             };
 
+            //tempo do jogo
+            double tempoLimite = 30;
+            Stopwatch tempo = new Stopwatch();
+            tempo.Start();
+            
             while (jogoRolando)
             {
-
                 //não tem chances nesse modo
-
-                //tempo do jogo
-                Stopwatch tempo = new Stopwatch();
-                tempo.Start();
-                double tempoLimite = 30;
 
                 double tempoRestante = tempoLimite - tempo.Elapsed.TotalSeconds;
                 if (tempoRestante < 0) tempoRestante = 0;
-                Console.WriteLine($"TEMPO RESTANTE: {tempoRestante:F1} segundos");
 
-                Console.WriteLine($"TEMPO RESTANTE: {tempo.Elapsed.TotalSeconds:F1}");
+                Console.Clear();
+                titulo();
+                Console.WriteLine($"TEMPO RESTANTE: {tempoRestante:F1}");
 
                 //Mostra o número de perguntas respondidas
                 Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
+
+                if (perguntas.Count == 0)
+                {
+                    Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS: " + pontos);
+                    Thread.Sleep(1000);
+                    break;
+                }
 
                 Random random = new Random();
                 int index = random.Next(perguntas.Count);
@@ -62,36 +70,40 @@ namespace Aula1
                 //verifica se a resposta está correta
                 if (respostaJogador == pergunta[4])
                 {
+                    pontos++;
                     Console.Clear();
                     titulo();
                     Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
+                    Console.WriteLine("-------------------------");
                 }
                 else if (respostaJogador != pergunta[4])
                 {
                     Console.Clear();
                     titulo();
-                    Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
-                    Console.WriteLine("----------------------");
+                    Console.WriteLine("ERRADO, PRÓXIMA PERGUNTA!");
+                    Console.WriteLine("--------------------------");
                 }
 
-               
-
-             /*   if ()
+                //Mensagem Final de Jogo 
+                if (tempoRestante <= 0)
                 {
+                    Console.WriteLine("-----------------------------------");
                     Console.WriteLine("ACABOU SEU TEMPO, VOCÊ NÃO É DIGNO!");
+                    Thread.Sleep(1000);
                     break;
                 }
-             */
+                
                 if (pontos == 10)
                 {
+                    Console.WriteLine("------------------------------------");
                     Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                    Thread.Sleep(1000);
                     break;
-                } else
-                {
-                    Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS: " + pontos);
-                }
+                } 
+                
+                
 
-                    perguntas.RemoveAt(index);
+               perguntas.RemoveAt(index);
             }
         }
 

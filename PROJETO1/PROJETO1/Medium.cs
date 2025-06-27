@@ -57,7 +57,6 @@ namespace Aula1
                     titulo();
                     Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
                     Console.WriteLine("----------------------");
-                    Console.WriteLine(vidas);
                 }
                 else if (respostaJogador != pergunta[4])
                 {
@@ -65,7 +64,7 @@ namespace Aula1
                     Console.Clear();
                     titulo();
                     Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
-                    Console.WriteLine("----------------------");
+                    Console.WriteLine("--------------------------");
                 }
 
                 if (vidas == 0)
