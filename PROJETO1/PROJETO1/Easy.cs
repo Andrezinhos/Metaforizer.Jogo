@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Aula1
 {
@@ -56,16 +57,20 @@ namespace Aula1
                     pontos++;
                     Console.Clear();
                     titulo();
+                    Console.WriteLine("-------------------------");
                     Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
                     Console.WriteLine("-------------------------");
+                    Thread.Sleep(1000);
                 }
                 else if (respostaJogador != pergunta[4])
                 {
                     vidas--;
                     Console.Clear();
                     titulo();
+                    Console.WriteLine("--------------------------");
                     Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
-                    Console.WriteLine("----------------------");
+                    Console.WriteLine("--------------------------");
+                    Thread.Sleep(1000);
                 } 
 
                 if (vidas == 0)

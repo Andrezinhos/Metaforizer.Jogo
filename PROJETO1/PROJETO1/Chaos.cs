@@ -10,6 +10,20 @@ namespace Aula1
         public void ChaosMode()
         {
             bool jogoRolando = true;
+            int tempoRestante = 30;
+
+            Thread tempoThread = new Thread(() =>
+            {
+                while (jogoRolando && tempoRestante > 0)
+                {
+                    Console.SetCursorPosition(0, 0);
+                    Thread.Sleep(1000);
+                    tempoRestante--;
+                    Console.Write($"FALTAM {tempoRestante} SEGUNDOS!      ");
+                }
+                jogoRolando = false;
+            });
+            tempoThread.Start();
 
 
             int pontos = 0;
@@ -38,22 +52,11 @@ namespace Aula1
             {
                 //não tem chances nesse modo
 
-                double tempoRestante = tempoLimite - tempo.Elapsed.TotalSeconds;
+                double tempoFalta = tempoLimite - tempo.Elapsed.TotalSeconds;
                 if (tempoRestante < 0) tempoRestante = 0;
-
-                Console.Clear();
-                titulo();
-                Console.WriteLine($"TEMPO RESTANTE: {tempoRestante:F1}");
 
                 //Mostra o número de perguntas respondidas
                 Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
-
-                if (perguntas.Count == 0)
-                {
-                    Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS: " + pontos);
-                    Thread.Sleep(1000);
-                    break;
-                }
 
                 Random random = new Random();
                 int index = random.Next(perguntas.Count);
@@ -66,6 +69,12 @@ namespace Aula1
                 Console.WriteLine("Qual a opção correta?: ");
                 string respostaJogador = Console.ReadLine().Trim();
                 Console.Clear();
+
+                for (int i = 2; i < 12; i++)
+                {
+                    Console.SetCursorPosition(0, i);
+                    Console.Write(new string(' ', Console.WindowWidth));
+                }
 
                 //verifica se a resposta está correta
                 if (respostaJogador == pergunta[4])
@@ -99,11 +108,14 @@ namespace Aula1
                     Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
                     Thread.Sleep(1000);
                     break;
-                } 
-                
-                
+                }  if (perguntas.Count == 0) 
+                {
+                    Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS: " + pontos);
+                    Thread.Sleep(1000);
+                    break;
+                }
 
-               perguntas.RemoveAt(index);
+                    perguntas.RemoveAt(index);
             }
         }
 
