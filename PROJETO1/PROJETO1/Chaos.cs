@@ -1,30 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Threading;
 
 namespace Aula1
 {
     public class Chaos
     {
-        public void ChaosMode()
+        private static bool tempoEsgotado = false;
+        private static bool tempoComeça = false;
+        public async Task ChaosMode()
         {
             bool jogoRolando = true;
-            int tempoRestante = 30;
-
-            Thread tempoThread = new Thread(() =>
-            {
-                while (jogoRolando && tempoRestante > 0)
-                {
-                    Console.SetCursorPosition(0, 0);
-                    Thread.Sleep(1000);
-                    tempoRestante--;
-                    Console.Write($"FALTAM {tempoRestante} SEGUNDOS!      ");
-                }
-                jogoRolando = false;
-            });
-            tempoThread.Start();
-
+            int tempoLimite = 30;
 
             int pontos = 0;
 
@@ -44,16 +32,24 @@ namespace Aula1
             };
 
             //tempo do jogo
-            double tempoLimite = 30;
-            Stopwatch tempo = new Stopwatch();
-            tempo.Start();
-            
+
+            static async Task cronometro()
+            {
+                await Cronometro(30);
+            }
+
+            static async Task Cronometro(int segundos)
+            {
+                for (int i = 0; i > 0; i--)
+                {
+                    Console.WriteLine($"FALTAM {i} SEGUNDOS");
+                    await Task.Delay(1000);
+                }  
+            }
+
             while (jogoRolando)
             {
                 //não tem chances nesse modo
-
-                double tempoFalta = tempoLimite - tempo.Elapsed.TotalSeconds;
-                if (tempoRestante < 0) tempoRestante = 0;
 
                 //Mostra o número de perguntas respondidas
                 Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
@@ -69,12 +65,6 @@ namespace Aula1
                 Console.WriteLine("Qual a opção correta?: ");
                 string respostaJogador = Console.ReadLine().Trim();
                 Console.Clear();
-
-                for (int i = 2; i < 12; i++)
-                {
-                    Console.SetCursorPosition(0, i);
-                    Console.Write(new string(' ', Console.WindowWidth));
-                }
 
                 //verifica se a resposta está correta
                 if (respostaJogador == pergunta[4])
@@ -93,35 +83,36 @@ namespace Aula1
                     Console.WriteLine("--------------------------");
                 }
 
-                //Mensagem Final de Jogo 
-                if (tempoRestante <= 0)
-                {
-                    Console.WriteLine("-----------------------------------");
-                    Console.WriteLine("ACABOU SEU TEMPO, VOCÊ NÃO É DIGNO!");
-                    Thread.Sleep(1000);
-                    break;
-                }
-                
+                //Mensagem Final de Jogo
+
                 if (pontos == 10)
                 {
                     Console.WriteLine("------------------------------------");
                     Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
                     Thread.Sleep(1000);
                     break;
-                }  if (perguntas.Count == 0) 
+                }
+                if (perguntas.Count == 0)
                 {
                     Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS: " + pontos);
                     Thread.Sleep(1000);
                     break;
                 }
 
-                    perguntas.RemoveAt(index);
+                perguntas.RemoveAt(index);
             }
-        }
 
-        static void titulo()
-        {
-            string title = @"
+            if (tempoEsgotado)
+            {
+                Console.WriteLine("ACABOU SEU TEMPO, VOCÊ NÃO É DIGNO");
+                Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
+            }
+
+            
+
+            static void titulo()
+                {
+                    string title = @"
                  ________    _________      __          ________     __        _____      _________     ________       ________      _____
 |\        /|    |                |         /  \        |            /  \      |     \         |                /      |             |     \
 | \      / |    |                |        /    \       |           /    \     |      \        |               /       |             |      \
@@ -131,7 +122,11 @@ namespace Aula1
 |          |    |________        |    /            \   |            \__/      |      \    ____|____       /________   |________     |      \
 ";
 
-            Console.WriteLine(title);
+                    Console.WriteLine(title);
+                }
+
+            
         }
+
     }
 }
