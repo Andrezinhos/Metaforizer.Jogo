@@ -59,10 +59,9 @@ namespace Aula1
                         dificil.HardMode();
                         break;
                     case "4":
-                        Chaos caotico = new Chaos();
                         Console.Clear();
                         titulo();
-                        caotico.ChaosMode();
+                        Chaos.ChaosMode();
                         break;
                 }
             }

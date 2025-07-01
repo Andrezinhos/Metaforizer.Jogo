@@ -9,7 +9,7 @@ namespace Aula1
     {
         private static bool tempoEsgotado = false;
         private static bool tempoComeça = false;
-        public async Task ChaosMode()
+        public void ChaosMode()
         {
             bool jogoRolando = true;
             int tempoLimite = 30;
@@ -18,17 +18,17 @@ namespace Aula1
 
             //Lista de perguntas
 
-            var perguntas = new List<List<string>>() {
-            new List<string> {"Eu fico escondido, mas posso ser visto, se quiser me achar olhe no espelho", "1 - Olho", "2 - Orelha", "3 - Nariz", "1"},
-            new List<string> {"Ando sem pés, falo sem voz, estou em todo lugar, mas não deixo pegadas", "1 - Luz", "2 - Som", "3 - Vento", "3"},
-            new List<string> {"Deito-me no papel como tinta que pensa, e dou forma ao que só existia no silêncio", "1 - Borracha", "2 - Caneta", "3 - Livro", "2"},
-            new List<string> {"Sou corpo de boca aberta, mas só recebo, nunca falo", "1 - Bolsa", "2 - Xícara", "3 - Envelope", "3"},
-            new List<string> {"Carrego o mundo nas costas, mas ele nunca me vê", "1 - Sombra", "2 - Noite", "3 - Coluna", "1"},
-            new List<string> {"Tenho asas que não batem, voo sem vento, e pouso onde ninguém vê", "1 - Papel", "2 - Pensamento", "3 - Poeira", "2"},
-            new List<string> {"Sou silêncio com cheiro, sou tempo que queima, sou pele de planta acesa", "1 - Incenso", "2 - Fumaça", "3 - Vela", "1"},
-            new List<string> {"Sou o segredo que dorme em armários, o eco de passos que ninguém ouviu. Não tenho rosto, mas tenho peso", "1 - Silêncio", "2 - Sono", "3 - Passado", "3"},
-            new List<string> {"Sou chão que nunca se pisa, e teto que nunca cobre. Habito o meio do que não existe", "1 - Horizonte", "2 - Espelho", "3 - Névoa", "1"},
-            new List<string> {"Sou rei que morre a cada instante, mas governa tudo o que é. Nunca volto, mas deixo marcas nos tronos da alma", "1 - Passado", "2 - Tempo", "3 - Destino", "2"}
+            var palavras = new List<List<string>>() {
+            new List<string> {"ANIMAL DOMÉSTICO", "G", "A", "T", "O"},
+            new List<string> {"BRINQUEDO", "B", "O", "L", "A"},
+            new List<string> {"MÓVEL", "M", "E", "S", "A"},
+            new List<string> {"LUGAR PARA MORAR", "C", "A", "S", "A"},
+            new List<string> {"CLIMA", "C", "H", "U", "V", "A"},
+            new List<string> {"VESTIMENTA", "S", "A", "P", "A", "T", "O"},
+            new List<string> {"OBJETO DE INFORMAÇÃO", "L", "I", "V", "R", "O"},
+            new List<string> {"PONTO DE VISTA", "J", "A", "N", "E", "L", "A"},
+            new List<string> {"INSTITUIÇÃO", "1 - Horizonte", "2 - Espelho", "3 - Névoa", "1"},
+            new List<string> {"TIPO DE PESSOA", "A", "2 - Tempo", "3 - Destino", "2"}
             };
 
             //tempo do jogo
@@ -55,19 +55,17 @@ namespace Aula1
                 Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
 
                 Random random = new Random();
-                int index = random.Next(perguntas.Count);
-                var pergunta = perguntas[index];
+                int index = random.Next((int)palavras.Count);
+                var palavras = palavras[index];
 
-                Console.WriteLine(pergunta[0]);
-                Console.WriteLine(pergunta[1]);
-                Console.WriteLine(pergunta[2]);
-                Console.WriteLine(pergunta[3]);
+                Console.WriteLine((string)palavras[0]);
+
                 Console.WriteLine("Qual a opção correta?: ");
                 string respostaJogador = Console.ReadLine().Trim();
                 Console.Clear();
 
                 //verifica se a resposta está correta
-                if (respostaJogador == pergunta[4])
+                if (respostaJogador == palavras[4])
                 {
                     pontos++;
                     Console.Clear();
@@ -75,7 +73,7 @@ namespace Aula1
                     Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
                     Console.WriteLine("-------------------------");
                 }
-                else if (respostaJogador != pergunta[4])
+                else if (respostaJogador != palavras[4])
                 {
                     Console.Clear();
                     titulo();
@@ -92,14 +90,14 @@ namespace Aula1
                     Thread.Sleep(1000);
                     break;
                 }
-                if (perguntas.Count == 0)
+                if (palavras.Count == 0)
                 {
                     Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS: " + pontos);
                     Thread.Sleep(1000);
                     break;
                 }
 
-                perguntas.RemoveAt(index);
+                palavras.RemoveAt(index);
             }
 
             if (tempoEsgotado)
@@ -110,7 +108,11 @@ namespace Aula1
 
             
 
-            static void titulo()
+            
+
+            
+        }
+        static void titulo()
                 {
                     string title = @"
                  ________    _________      __          ________     __        _____      _________     ________       ________      _____
@@ -124,9 +126,5 @@ namespace Aula1
 
                     Console.WriteLine(title);
                 }
-
-            
-        }
-
     }
 }
