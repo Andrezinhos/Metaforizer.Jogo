@@ -59,16 +59,16 @@ namespace Aula1
                         dificil.HardMode();
                         break;
                     case "4":
+                        Chaos caos = new Chaos();
                         Console.Clear();
                         titulo();
-                        Chaos.ChaosMode();
+                        caos.ChaosMode();
                         break;
                 }
             }
             else if (escolha == "2")
             {
                 Console.WriteLine("Configurações ainda não implementadas. Pressione Enter para voltar ao menu principal.");
-                Console.ReadLine();
                 Console.Clear();
                 titulo();
                 Console.WriteLine("1 - Iniciar Jogo");
