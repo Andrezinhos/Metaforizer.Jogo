@@ -10,77 +10,71 @@ namespace Aula1
         {
             bool jogoRolando = true;
 
-            int pontos = 0;
+            int progresso = 0;
+            int chances = 6;
 
-            //Array de Arrays de palavras
-            string[][] palavras = new string[][]
+
+            //Lista de palavras
+            var palavras = new List<List<string>> 
             {
-                new string[] {"ANIMAL DOMÉSTICO", "GATO" },
-                new string[] {"BRINQUEDO", "BOLA" },
-                new string[] {"MÓVEL", "MESA" },
-                new string[] {"LUGAR PARA MORAR", "CASA" },
-                new string[] {"CLIMA", "CHUVA" },
-                new string[] {"VESTIMENTA", "SAPATO" },
-                new string[] {"OBJETO DE INFORMAÇÃO", "LIVRO" },
-                new string[] {"PONTO DE VISTA", "JANELA" },
-                new string[] { "INSTITUIÇÃO BÁSICA", "ESCOLA"},
-                new string[] { "TIPO DE PESSOA", "AMIGO" }
+                new List<string> { "ANIMAL DOMÉSTICO", "gato" },
+                new List<string> { "BRINQUEDO", "bola" },
+                new List<string> { "MÓVEL", "mesa" },
+                new List<string> { "LUGAR PARA MORAR", "casa" },
+                new List<string> { "CLIMA", "chuva" },
+                new List<string> { "VESTIMENTA", "sapato" },
+                new List<string> { "OBJETO DE INFORMAÇÃO", "livro" },
+                new List<string> { "PONTO DE VISTA", "janela" },
+                new List<string> { "INSTITUIÇÃO BÁSICA", "escola"},
+                new List<string> { "TIPO DE PESSOA", "amigo" }
             };
 
             while (jogoRolando)
             {
-                Random random = new Random();
-                int index = random.Next(palavras.Length);
-                string[] palavraSorteada = palavras[index];
-
-                int progresso = 0;
-                int chances = 6;
-
-                Console.Clear();
-                Console.WriteLine("CHANCES: " + chances);
-                Console.WriteLine("DICA: " + palavras[0][0]);
-                Console.WriteLine("Qual é essa palavra?: ");
                 Console.WriteLine("PROGRESSO: " + progresso);
-                string respostaJogador = Console.ReadLine().ToUpper();
+
+                Console.WriteLine("CHANCES: " + chances);
+
+                Random random = new Random();
+                int index = random.Next(palavras.Count);
+                var palavraSorteada = palavras[index];
+                                
+                Console.WriteLine(palavraSorteada[0]);
+                Console.WriteLine("Qual é essa palavra?: ");
+                string respostaJogador = Console.ReadLine().Trim();
                 Console.Clear();
-
-                bool acertou = false;
-
-                //verifica se a resposta está correta corrigir
-                if (respostaJogador == palavras[1])
+                               
+                //verifica se a resposta está correta
+                if (respostaJogador == palavraSorteada[1])
                 {
                     progresso++;
+                    titulo();
+                    Console.WriteLine("PALAVRA CORRETA");
                     Console.Clear();
                 }
                 else 
                 {
                     chances--;
-                    Console.WriteLine();
+                    titulo();
+                    Console.WriteLine("PALAVRA ERRADA");
+                    Console.Clear();
                 }
-
-
-
-
-                if (chances == 0)
-                {
-                    chances--;
-                    Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO");
-                    Console.ReadKey();
-                }
-                
 
                 //Mensagem Final de Jogo
-
-                if (pontos == 3)
+                if (chances == 0)
                 {
+                    titulo();
+                    Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO");
+                    break;
+                } 
+                else if (progresso == 3)
+                {
+                    titulo();
                     Console.WriteLine("------------------------------------");
                     Console.WriteLine("PARABÉNS, VOCÊ DERROTOU O DESAFIO SUPREMO");
-                    Thread.Sleep(1000);
                     break;
                 }
-             
-
-                
+                                
             }
             
         }
