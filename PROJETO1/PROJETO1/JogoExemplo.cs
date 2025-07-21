@@ -7,6 +7,9 @@ namespace Aula1
 {
     class JogoExemplo
     {
+
+        
+
         static char[,] mapa;
         static int largura = 20;
         static int altura = 10;
@@ -14,15 +17,16 @@ namespace Aula1
         static int playerY = 1;
         static bool jogando = true;
 
-        static void Main()
+        public void Main()
         {
+            
             Console.Clear();
 
             //aqui vai entrar o menu de vocês
             jogar();            
         }
 
-        static void jogar()
+        public void jogar()
         {
             iniciarMapa();
 
@@ -71,25 +75,27 @@ namespace Aula1
                 Console.WriteLine();
             }
         }
-
-        static void atualizarPosicao(ConsoleKey tecla)
+        Vector2 pos = new Vector2(1, 1);
+        public void atualizarPosicao(ConsoleKey tecla)
         {
             int tempX = playerX;
             int tempY = playerY;
+            int x = pos.x;
+            int y = pos.y;
 
             switch (tecla)
             {
                 case ConsoleKey.A:
-                    tempX--;
+                    x = pos.Left;
                     break;
                 case ConsoleKey.D:
-                    tempX++;
+                    x = pos.Right;
                     break;
                 case ConsoleKey.W:
-                    tempY--;
+                    y = pos.Up;
                     break;
                 case ConsoleKey.S:
-                    tempY++;
+                    y = pos.Down;
                     break;
             }
 
