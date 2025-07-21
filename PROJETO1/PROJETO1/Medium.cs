@@ -55,7 +55,7 @@ namespace Aula1
                 {
                     pontos++;
                     Console.Clear();
-                    titulo();
+                    GameManager.Instance.titulo();
                     Console.WriteLine("--------------------------");
                     Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
                     Console.WriteLine("-------------------------");
@@ -65,7 +65,7 @@ namespace Aula1
                 {
                     vidas--;
                     Console.Clear();
-                    titulo();
+                    GameManager.Instance.titulo();
                     Console.WriteLine("--------------------------");
                     Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
                     Console.WriteLine("--------------------------");
@@ -81,26 +81,13 @@ namespace Aula1
                 if (pontos == 10)
                 {
                     Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
-                    break;
+                    Console.Clear();
+                    GameManager.Instance.Menu();
                 }
 
                 perguntas.RemoveAt(index);
             }
         }
 
-        static void titulo()
-        {
-            string title = @"
-                 ________    _________      __          ________     __        _____      _________     ________       ________      _____
-|\        /|    |                |         /  \        |            /  \      |     \         |                /      |             |     \
-| \      / |    |                |        /    \       |           /    \     |      \        |               /       |             |      \
-|  \    /  |    |______          |       /______\      |______    /      \    |      /        |              /        |______       |      /
-|   \__/   |    |                |      /        \     |          \      /    |_____/         |             /         |             |_____/
-|          |    |                |     /          \    |           \    /     |     \         |            /          |             |     \ 
-|          |    |________        |    /            \   |            \__/      |      \    ____|____       /________   |________     |      \
-";
-
-            Console.WriteLine(title);
-        }
     }
 }

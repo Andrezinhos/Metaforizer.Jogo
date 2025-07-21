@@ -48,14 +48,14 @@ namespace Aula1
                 if (respostaJogador == palavraSorteada[1])
                 {
                     progresso++;
-                    titulo();
+                    GameManager.Instance.titulo();
                     Console.WriteLine("PALAVRA CORRETA");
                     Console.Clear();
                 }
                 else 
                 {
                     chances--;
-                    titulo();
+                    GameManager.Instance.titulo();
                     Console.WriteLine("PALAVRA ERRADA");
                     Console.Clear();
                 }
@@ -63,13 +63,13 @@ namespace Aula1
                 //Mensagem Final de Jogo
                 if (chances == 0)
                 {
-                    titulo();
+                    GameManager.Instance.titulo();
                     Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO");
                     break;
                 } 
                 else if (progresso == 3)
                 {
-                    titulo();
+                    GameManager.Instance.titulo();
                     Console.WriteLine("------------------------------------");
                     Console.WriteLine("PARABÉNS, VOCÊ DERROTOU O DESAFIO SUPREMO");
                     break;
@@ -78,19 +78,6 @@ namespace Aula1
             }
             
         }
-        static void titulo()
-                {
-                    string title = @"
-                 ________    _________      __          ________     __        _____      _________     ________       ________      _____
-|\        /|    |                |         /  \        |            /  \      |     \         |                /      |             |     \
-| \      / |    |                |        /    \       |           /    \     |      \        |               /       |             |      \
-|  \    /  |    |______          |       /______\      |______    /      \    |      /        |              /        |______       |      /
-|   \__/   |    |                |      /        \     |          \      /    |_____/         |             /         |             |_____/
-|          |    |                |     /          \    |           \    /     |     \         |            /          |             |     \ 
-|          |    |________        |    /            \   |            \__/      |      \    ____|____       /________   |________     |      \
-";
 
-                    Console.WriteLine(title);
-                }
     }
 }

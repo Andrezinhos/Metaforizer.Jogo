@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 
 namespace Aula1
@@ -15,16 +17,14 @@ namespace Aula1
             //Lista de perguntas
 
             var perguntas = new List<List<string>>() {
-            new List<string> {"Eu fico escondido, mas posso ser visto, se quiser me achar olhe no espelho", "1 - Olho", "2 - Orelha", "3 - Nariz", "1"},
-            new List<string> {"Ando sem pés, falo sem voz, estou em todo lugar, mas não deixo pegadas", "1 - Luz", "2 - Som", "3 - Vento", "3"},
-            new List<string> {"Deito-me no papel como tinta que pensa, e dou forma ao que só existia no silêncio", "1 - Borracha", "2 - Caneta", "3 - Livro", "2"},
-            new List<string> {"Sou corpo de boca aberta, mas só recebo, nunca falo", "1 - Bolsa", "2 - Xícara", "3 - Envelope", "3"},
-            new List<string> {"Carrego o mundo nas costas, mas ele nunca me vê", "1 - Sombra", "2 - Noite", "3 - Coluna", "1"},
-            new List<string> {"Tenho asas que não batem, voo sem vento, e pouso onde ninguém vê", "1 - Papel", "2 - Pensamento", "3 - Poeira", "2"},
-            new List<string> {"Sou silêncio com cheiro, sou tempo que queima, sou pele de planta acesa", "1 - Incenso", "2 - Fumaça", "3 - Vela", "1"},
-            new List<string> {"Sou o segredo que dorme em armários, o eco de passos que ninguém ouviu. Não tenho rosto, mas tenho peso", "1 - Silêncio", "2 - Sono", "3 - Passado", "3"},
-            new List<string> {"Sou chão que nunca se pisa, e teto que nunca cobre. Habito o meio do que não existe", "1 - Horizonte", "2 - Espelho", "3 - Névoa", "1"},
-            new List<string> {"Sou rei que morre a cada instante, mas governa tudo o que é. Nunca volto, mas deixo marcas nos tronos da alma", "1 - Passado", "2 - Tempo", "3 - Destino", "2"}
+            new List<string> {"5 + 2", "8", "7", "6", "7"},
+            new List<string> {"9 - 4", "5", "6", "7", "5"},
+            new List<string> {"3 x 2", "5", "4", "6", "6"},
+            new List<string> {"8 / 2", "3", "2", "4", "4"},
+            new List<string> {"1 + 1 + 2", "3", "4", "6", "4"},
+            new List<string> {"6 - 1 - 2", "6", "3", "4", "3"},
+            new List<string> {"2 x 3 x 1", "4", "6", "5"},
+            new List<string> {"9 "}
             };
 
             while (jogoRolando)
@@ -50,7 +50,7 @@ namespace Aula1
                 if (respostaJogador == pergunta[4])
                 {
                     Console.Clear();
-                    titulo();
+                    GameManager.Instance.titulo();
                     Console.WriteLine("-------------------------");
                     Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
                     Console.WriteLine("-------------------------");
@@ -59,7 +59,7 @@ namespace Aula1
                 else if (respostaJogador != pergunta[4])
                 {
                     Console.Clear();
-                    titulo();
+                    GameManager.Instance.titulo();
                     Console.WriteLine("-------------------------");
                     Console.WriteLine("ERRADO, VOCÊ NÃO É DIGNO!");
                     Console.WriteLine("-------------------------");
@@ -69,26 +69,13 @@ namespace Aula1
                 if (pontos == 10)
                 {
                     Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
-                    break;
+                    Console.Clear();
+                    GameManager.Instance.Menu();
                 }
 
                 perguntas.RemoveAt(index);
             }
         }
 
-        static void titulo()
-        {
-            string title = @"
-                 ________    _________      __          ________     __        _____      _________     ________       ________      _____
-|\        /|    |                |         /  \        |            /  \      |     \         |                /      |             |     \
-| \      / |    |                |        /    \       |           /    \     |      \        |               /       |             |      \
-|  \    /  |    |______          |       /______\      |______    /      \    |      /        |              /        |______       |      /
-|   \__/   |    |                |      /        \     |          \      /    |_____/         |             /         |             |_____/
-|          |    |                |     /          \    |           \    /     |     \         |            /          |             |     \ 
-|          |    |________        |    /            \   |            \__/      |      \    ____|____       /________   |________     |      \
-";
-
-            Console.WriteLine(title);
-        }
     }
 }
