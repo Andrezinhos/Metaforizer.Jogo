@@ -23,8 +23,11 @@ namespace Aula1
             new List<string> {"8 / 2", "3", "2", "4", "4"},
             new List<string> {"1 + 1 + 2", "3", "4", "6", "4"},
             new List<string> {"6 - 1 - 2", "6", "3", "4", "3"},
-            new List<string> {"2 x 3 x 1", "4", "6", "5"},
-            new List<string> {"9 "}
+            new List<string> {"2 x 3 x 1", "4", "6", "5", "6"},
+            new List<string> {"9 / 3 + 1", "5", "2", "4", "4"},
+            new List<string> {"7 - 2 + 1", "5", "6", "7", "6"},
+            new List<string> {"4 x 1 - 2", "5", "7", "2", "2"},
+            new List<string> {"4 x 1 - 2", "5", "7", "2", "2"}
             };
 
             while (jogoRolando)

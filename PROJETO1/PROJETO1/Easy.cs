@@ -17,16 +17,16 @@ namespace Aula1
             //Lista de perguntas
 
             var perguntas = new List<List<string>>() {
-            new List<string> {"Eu fico escondido, mas posso ser visto, se quiser me achar olhe no espelho", "1 - Olho", "2 - Orelha", "3 - Nariz", "1"},
-            new List<string> {"Ando sem pés, falo sem voz, estou em todo lugar, mas não deixo pegadas", "1 - Luz", "2 - Som", "3 - Vento", "3"},
-            new List<string> {"Deito-me no papel como tinta que pensa, e dou forma ao que só existia no silêncio", "1 - Borracha", "2 - Caneta", "3 - Livro", "2"},
-            new List<string> {"Sou corpo de boca aberta, mas só recebo, nunca falo", "1 - Bolsa", "2 - Xícara", "3 - Envelope", "3"},
-            new List<string> {"Carrego o mundo nas costas, mas ele nunca me vê", "1 - Sombra", "2 - Noite", "3 - Coluna", "1"},
-            new List<string> {"Tenho asas que não batem, voo sem vento, e pouso onde ninguém vê", "1 - Papel", "2 - Pensamento", "3 - Poeira", "2"},
-            new List<string> {"Sou silêncio com cheiro, sou tempo que queima, sou pele de planta acesa", "1 - Incenso", "2 - Fumaça", "3 - Vela", "1"},
-            new List<string> {"Sou o segredo que dorme em armários, o eco de passos que ninguém ouviu. Não tenho rosto, mas tenho peso", "1 - Silêncio", "2 - Sono", "3 - Passado", "3"},
-            new List<string> {"Sou chão que nunca se pisa, e teto que nunca cobre. Habito o meio do que não existe", "1 - Horizonte", "2 - Espelho", "3 - Névoa", "1"},
-            new List<string> {"Sou rei que morre a cada instante, mas governa tudo o que é. Nunca volto, mas deixo marcas nos tronos da alma", "1 - Passado", "2 - Tempo", "3 - Destino", "2"}
+            new List<string> { "ANIMAL DOMÉSTICO", "gato" },
+            new List<string> { "BRINQUEDO", "bola" },
+            new List<string> { "MÓVEL", "mesa" },
+            new List<string> { "LUGAR PARA MORAR", "casa" },
+            new List<string> { "CLIMA", "chuva" },
+            new List<string> { "VESTIMENTA", "sapato" },
+            new List<string> { "OBJETO DE INFORMAÇÃO", "livro" },
+            new List<string> { "PONTO DE VISTA", "janela" },
+            new List<string> { "INSTITUIÇÃO BÁSICA", "escola"},
+            new List<string> { "TIPO DE PESSOA", "amigo" }
             };
 
             while (jogoRolando)
@@ -44,15 +44,12 @@ namespace Aula1
                 var pergunta = perguntas[index];
 
                 Console.WriteLine(pergunta[0]);
-                Console.WriteLine(pergunta[1]);
-                Console.WriteLine(pergunta[2]);
-                Console.WriteLine(pergunta[3]);
-                Console.WriteLine("Qual a opção correta?: ");
+                Console.WriteLine("Qual a palavra correta?: ");
                 string respostaJogador = Console.ReadLine().Trim();
                 Console.Clear();
 
                 //verifica se a resposta está correta
-                if (respostaJogador == pergunta[4])
+                if (respostaJogador == pergunta[1])
                 {
                     pontos++;
                     Console.Clear();
@@ -62,7 +59,7 @@ namespace Aula1
                     Console.WriteLine("-------------------------");
                     Thread.Sleep(1000);
                 }
-                else if (respostaJogador != pergunta[4])
+                else if (respostaJogador != pergunta[1])
                 {
                     vidas--;
                     Console.Clear();

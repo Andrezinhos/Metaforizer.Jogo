@@ -39,10 +39,10 @@ namespace Aula1
             t.Join();
         }
 
-        public void Awake() { }
-        public void Start() { }
-        public void Update() { }
-        public  void LateUpdate() { }
-        public void OnDestroy() { }
+        public virtual void Awake() { }
+        public virtual void Start() { }
+        public virtual void Update() { }
+        public virtual void LateUpdate() { }
+        public virtual void OnDestroy() { }
     }
 }

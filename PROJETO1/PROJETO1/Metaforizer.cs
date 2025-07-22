@@ -6,8 +6,7 @@ namespace Aula1
     {
         static void Main()
         {
-            GameManager.Instance.Start();
-
+            GameManager.Instance.Menu();
             /*  while (jogoRolando)
               {
 
@@ -50,9 +49,7 @@ namespace Aula1
               }
 
          */
-
         }
-
 
     }
 }

@@ -6,18 +6,21 @@ using System.Threading.Tasks;
 
 namespace Aula1
 {
-    class GameManager
+    class GameManager : MonoBehavior
     {
         private static GameManager instancia;
 
-        private GameManager() { }
+        private GameManager() 
+        {
+            Run();         
+        }
 
         public static GameManager Instance => instancia ??= new GameManager();
 
         public string escolha = Console.ReadLine();
         
 
-        public void Start()
+        public void Menu()
         {
             bool jogoRolando = false;
 
@@ -33,16 +36,16 @@ namespace Aula1
 
             switch (escolha)
             {
-                case "1": Menu();
+                case "1": Modo();
                     break;
                 case "2": Creditos();
                     break;
-                case "3": jogoRolando = false;
+                case "3": Stop();
                     break;
             }
         }
 
-        public void Menu()
+        public void Modo()
         {
             Console.Clear();
             titulo();
@@ -108,6 +111,17 @@ namespace Aula1
             Start();
         }
 
+        public int tempo(int n = 10) 
+        {
+            for (int i = n; i > 0; i--) 
+            {
+                Console.SetCursorPosition(0, 0);
+                Console.Write("                 ");
+                Console.WriteLine("TEMPO RESTANTE: " + i);
+                Thread.Sleep(1000);
+            }
+            return 0;
+        }
         public void titulo()
         {
             string title = @"
