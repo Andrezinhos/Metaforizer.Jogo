@@ -5,8 +5,18 @@ using System.Threading;
 namespace Aula1
 {
     //modo fácil do jogo
-    public class Easy
+    public class Easy : MonoBehavior
     {
+        private static Easy instancia;
+
+        private Easy() 
+        {
+            Run();         
+        }
+
+        public static Easy Instance => instancia ??= new Easy();
+
+        public string escolha = Console.ReadLine();
         public void EasyMode()
         {
             bool jogoRolando = true;
@@ -53,34 +63,34 @@ namespace Aula1
                 {
                     pontos++;
                     Console.Clear();
-                    GameManager.Instance.titulo();
                     Console.WriteLine("-------------------------");
                     Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
                     Console.WriteLine("-------------------------");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(800);
                 }
                 else if (respostaJogador != pergunta[1])
                 {
                     vidas--;
                     Console.Clear();
-                    GameManager.Instance.titulo();
                     Console.WriteLine("--------------------------");
                     Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
                     Console.WriteLine("--------------------------");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(800);
                 } 
 
                 if (vidas == 0)
                 {
+                    GameManager.Instance.titulo();
                     Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
                     break;
                 }
 
                 if (pontos == 10)
                 {
-                    Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
                     Console.Clear();
-                    GameManager.Instance.Menu();
+                    GameManager.Instance.titulo();
+                    Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                    break;
                 }
                 perguntas.RemoveAt(index);
             }

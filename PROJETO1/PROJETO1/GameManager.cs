@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,20 +11,17 @@ namespace Aula1
     {
         private static GameManager instancia;
 
-        private GameManager() 
+        private GameManager()
         {
-            Run();         
+            Run();
         }
 
         public static GameManager Instance => instancia ??= new GameManager();
 
-        public string escolha = Console.ReadLine();
-        
-
+        public string escolha;
+        public bool jogoRolando;
         public void Menu()
         {
-            bool jogoRolando = false;
-
             titulo();
             Console.WriteLine("----------------------");
             Console.WriteLine("1 - Iniciar Jogo");
@@ -32,15 +30,20 @@ namespace Aula1
             Console.WriteLine("----------------------");
             Console.WriteLine("Escolha uma opção:");
             escolha = Console.ReadLine();
-            Console.Clear();
 
             switch (escolha)
             {
-                case "1": Modo();
+                case "1":
+                    Console.Clear();
+                    Modo();
                     break;
-                case "2": Creditos();
+                case "2":
+                    Console.Clear();
+                    Creditos();
                     break;
-                case "3": Stop();
+                case "3":
+                    Console.Clear();
+                    Stop();
                     break;
             }
         }
@@ -65,32 +68,25 @@ namespace Aula1
             switch (escolhaDificuldade)
             {
                 case "1":
-                    Easy facil = new Easy();
                     Console.Clear();
-                    titulo();
-                    facil.EasyMode();
+                    Easy.Instance.EasyMode();
                     break;
                 case "2":
-                    Medium medio = new Medium();
                     Console.Clear();
-                    titulo();
-                    medio.MediumMode();
+                    Medium.Instance.MediumMode();
                     break;
                 case "3":
-                    Hard dificil = new Hard();
                     Console.Clear();
-                    titulo();
-                    dificil.HardMode();
+                    Hard.Instance.HardMode();
                     break;
                 case "4":
-                    Chaos caos = new Chaos();
                     Console.Clear();
-                    titulo();
-                    caos.ChaosMode();
+                    Chaos.Instance.ChaosMode();
                     break;
                 case "5":
                     Console.Clear();
-                    Start();
+                    titulo();
+                    Menu();
                     break;
             }
         }
@@ -101,26 +97,29 @@ namespace Aula1
 
             do
             {
-                titulo();
                 Console.WriteLine("Jogo criado por André");
                 Console.WriteLine("Pressione ESC para sair");
                 tecla = Console.ReadKey(true).Key;
 
             } while (tecla != ConsoleKey.Escape);
             Console.Clear();
-            Start();
+            Menu();
         }
 
-        public int tempo(int n = 10) 
+        public bool tempoAcabou = false;
+        public void TempoVisual(int segundos)
         {
-            for (int i = n; i > 0; i--) 
+            tempoAcabou = false;
+            for (int i = segundos; i >= 0; i--)
             {
-                Console.SetCursorPosition(0, 0);
-                Console.Write("                 ");
-                Console.WriteLine("TEMPO RESTANTE: " + i);
+                if (!Chaos.Instance.jogoRolando) break;
+
+                Console.SetCursorPosition(0, 0); // volta para o início da linha
+                Console.WriteLine("TEMPO RESTANTE: " + i + "   ");    // o espaço extra apaga números antigos
                 Thread.Sleep(1000);
             }
-            return 0;
+
+            tempoAcabou = true;
         }
         public void titulo()
         {
@@ -134,7 +133,7 @@ namespace Aula1
 |          |    |________        |    /            \   |            \__/      |      \    ____|____       /________   |________     |      \
 ";
 
-            Console.WriteLine(title);
+            Console.Write(title);
         }
     }
 }

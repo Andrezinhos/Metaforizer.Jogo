@@ -1,101 +1,115 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Channels;
+using System.Threading.Tasks;
 
 namespace Aula1
 {
     public class Chaos : MonoBehavior
     {
+        private static Chaos instancia;
+
+        public Chaos()
+        {
+            Awake();
+        }
+
+        public static Chaos Instance => instancia ??= new Chaos();
+
         public bool jogoRolando = true;
 
-        public int progresso = 0;
+        public int pontos = 0;
+
         public int chances = 6;
+
         public void ChaosMode()
         {
-            
-
-
             //Lista de palavras
             var palavras = new List<List<string>> 
             {
-                new List<string> { "ANIMAL DOMÉSTICO", "gato" },
-                new List<string> { "BRINQUEDO", "bola" },
-                new List<string> {"3 x 2", "5", "4", "6", "6"},
-                new List<string> {"9 / 3 + 1", "5", "2", "4", "4"},
-                new List<string> {"Sou silêncio com cheiro, sou tempo que queima, sou pele de planta acesa", "1 - Incenso", "2 - Fumaça", "3 - Vela", "1"},
-                new List<string> {"Sou rei que morre a cada instante, mas governa tudo o que é. Nunca volto, mas deixo marcas nos tronos da alma", "1 - Passado", "2 - Tempo", "3 - Destino", "2"},
-                new List<string> { "OBJETO DE INFORMAÇÃO", "livro" },
-                new List<string> { "PONTO DE VISTA", "janela" },
+                new List<string> {"6 - 1 - 2", "3"},
+                new List<string> { "LUGAR PARA MORAR", "casa" },
+                new List<string> {"2 x 3 x 1", "6"},
                 new List<string> { "INSTITUIÇÃO BÁSICA", "escola"},
+                new List<string> {"3 x 2", "6"},
+                new List<string> { "CLIMA", "chuva" },
+                new List<string> {"9 / 3 + 1", "4"},
+                new List<string> { "VESTIMENTA", "sapato" },
+                new List<string> {"7 - 2 + 1", "6"},
                 new List<string> { "TIPO DE PESSOA", "amigo" }
             };
 
-            while (jogoRolando)
-            {
+            Thread tempo = new Thread(() => GameManager.Instance.TempoVisual(60));
+            tempo.Start();
+            Console.SetCursorPosition(0, 0);
+            Console.CursorVisible = false;
 
-                hud();
-                tempo();
+            while (jogoRolando && !GameManager.Instance.tempoAcabou)
+            {
+                Console.SetCursorPosition(0, 1);
+                Console.WriteLine("CHANCES RESTANTES: " + chances);
+                Console.WriteLine("----------------------");
+                //Mostra o número de perguntas respondidas
+                Console.SetCursorPosition(0, 2);
+                Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
+                Console.WriteLine("----------------------");
 
                 Random random = new Random();
                 int index = random.Next(palavras.Count);
                 var palavraSorteada = palavras[index];
-                                
+
+                Console.SetCursorPosition(0, 3);
                 Console.WriteLine(palavraSorteada[0]);
-                Console.WriteLine("Qual é essa palavra?: ");
+                Console.WriteLine("Qual a resposta?: ");
                 string respostaJogador = Console.ReadLine().Trim();
                 Console.Clear();
-                               
+
                 //verifica se a resposta está correta
                 if (respostaJogador == palavraSorteada[1])
                 {
-                    progresso++;
-                    GameManager.Instance.titulo();
-                    Console.WriteLine("PALAVRA CORRETA");
+                    pontos++;
                     Console.Clear();
+                    Console.SetCursorPosition(0, 2);
+                    Console.WriteLine("PALAVRA CORRETA");
                 }
-                else 
+                else
                 {
                     chances--;
-                    GameManager.Instance.titulo();
-                    Console.WriteLine("PALAVRA ERRADA");
                     Console.Clear();
+                    Console.SetCursorPosition(0, 2);
+                    Console.WriteLine("PALAVRA ERRADA");
                 }
+
+                Thread.Sleep(1000);
+                Console.Clear();
 
                 //Mensagem Final de Jogo
                 if (chances == 0)
                 {
+                    Console.Clear();
                     GameManager.Instance.titulo();
                     Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO");
                     break;
-                } 
-                else if (progresso == 3)
+                }
+                else if (pontos == 3)
                 {
+                    Console.Clear();
                     GameManager.Instance.titulo();
                     Console.WriteLine("------------------------------------");
                     Console.WriteLine("PARABÉNS, VOCÊ DERROTOU O DESAFIO SUPREMO");
                     break;
                 }
-                                
+
             }
-            
+
+            if (GameManager.Instance.tempoAcabou)
+            {
+                GameManager.Instance.titulo();
+                Console.WriteLine("TEMPO ESGOTADO");
+            }
+
+            tempo.Join();
         }
 
-        public void hud()
-        {
-            Console.WriteLine("PROGRESSO: " + progresso);
-            Console.WriteLine("CHANCES: " + chances);
-        }
-        public int tempo(int n = 10)
-        {
-            for (int i = n; i > 0; i--)
-            {
-                Console.SetCursorPosition(0, Console.CursorTop);
-                Console.Write("TEMPO RESTANTE: " + i + "  ");
-                Thread.Sleep(1000);
-            }
-            return 0;
-        }
     }
 }

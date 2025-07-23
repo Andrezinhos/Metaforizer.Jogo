@@ -6,8 +6,17 @@ using System.Threading;
 
 namespace Aula1
 {
-    public class Hard
+    public class Hard : MonoBehavior
     {
+        private static Hard instancia;
+
+        public Hard()
+        {
+            Awake();
+        }
+
+        public static Hard Instance => instancia ??= new Hard();
+
         public void HardMode()
         {
             bool jogoRolando = true;
@@ -47,7 +56,6 @@ namespace Aula1
                 Console.WriteLine(pergunta[3]);
                 Console.WriteLine("Qual a opção correta?: ");
                 string respostaJogador = Console.ReadLine().Trim();
-                Console.Clear();
 
                 //verifica se a resposta está correta
                 if (respostaJogador == pergunta[4])
@@ -71,9 +79,10 @@ namespace Aula1
 
                 if (pontos == 10)
                 {
-                    Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
                     Console.Clear();
-                    GameManager.Instance.Menu();
+                    GameManager.Instance.titulo();
+                    Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                    break;
                 }
 
                 perguntas.RemoveAt(index);

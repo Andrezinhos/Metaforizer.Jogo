@@ -4,8 +4,17 @@ using System.Threading;
 
 namespace Aula1
 {
-    public class Medium
+    public class Medium : MonoBehavior
     {
+        private static Medium instancia;
+        public Medium() 
+        {
+            Awake();
+        }
+
+        public static Medium Instance => instancia ??= new Medium();
+
+
         public void MediumMode()
         {
             bool jogoRolando = true;
@@ -55,34 +64,34 @@ namespace Aula1
                 {
                     pontos++;
                     Console.Clear();
-                    GameManager.Instance.titulo();
                     Console.WriteLine("--------------------------");
                     Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
                     Console.WriteLine("-------------------------");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(800);
                 }
                 else if (respostaJogador != pergunta[4])
                 {
                     vidas--;
                     Console.Clear();
-                    GameManager.Instance.titulo();
                     Console.WriteLine("--------------------------");
                     Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
                     Console.WriteLine("--------------------------");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(800);
                 }
 
                 if (vidas == 0)
                 {
+                    GameManager.Instance.titulo();
                     Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
                     break;
                 }
 
                 if (pontos == 10)
                 {
-                    Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
                     Console.Clear();
-                    GameManager.Instance.Menu();
+                    GameManager.Instance.titulo();
+                    Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                    break;
                 }
 
                 perguntas.RemoveAt(index);
