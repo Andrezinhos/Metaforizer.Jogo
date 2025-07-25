@@ -8,92 +8,95 @@ namespace Aula1
     public class Easy : MonoBehavior
     {
         private static Easy instancia;
-
-        private Easy() 
+        private Easy()
         {
-            Run();         
+            Run();
         }
 
         public static Easy Instance => instancia ??= new Easy();
 
         public string escolha = Console.ReadLine();
-        public void EasyMode()
+
+        int vidas = 5;
+        int pontos = 0;
+
+        //Lista de perguntas
+        public List<(string categoria, string resposta)> perguntas = new List<(string, string)> {
+            ( "ANIMAL DOMÉSTICO", "gato" ),
+            ( "BRINQUEDO", "bola" ),
+            ( "MÓVEL", "mesa" ),
+            ( "LUGAR PARA MORAR", "casa" ),
+            ( "CLIMA", "chuva" ),
+            ( "VESTIMENTA", "sapato" ),
+            ( "OBJETO DE INFORMAÇÃO", "livro"),
+            ( "PONTO DE VISTA", "janela"),
+            ( "INSTITUIÇÃO BÁSICA", "escola"),
+            ( "TIPO DE PESSOA", "amigo" ),
+        };
+
+        static Random random = new Random();
+        
+
+        public override void Update()
         {
-            bool jogoRolando = true;
-            
-            int vidas = 5;
-            int pontos = 0;
+            Draw();
 
-            //Lista de perguntas
+            int index = random.Next(perguntas.Count);
+            var pergunta = perguntas[index];
 
-            var perguntas = new List<List<string>>() {
-            new List<string> { "ANIMAL DOMÉSTICO", "gato" },
-            new List<string> { "BRINQUEDO", "bola" },
-            new List<string> { "MÓVEL", "mesa" },
-            new List<string> { "LUGAR PARA MORAR", "casa" },
-            new List<string> { "CLIMA", "chuva" },
-            new List<string> { "VESTIMENTA", "sapato" },
-            new List<string> { "OBJETO DE INFORMAÇÃO", "livro" },
-            new List<string> { "PONTO DE VISTA", "janela" },
-            new List<string> { "INSTITUIÇÃO BÁSICA", "escola"},
-            new List<string> { "TIPO DE PESSOA", "amigo" }
-            };
 
-            while (jogoRolando)
+            string respostaJogador = Console.ReadLine().Trim();
+            Console.Clear();
+
+            //verifica se a resposta está correta
+            if (respostaJogador == pergunta.resposta)
             {
-
-                //Pega Perguntas aleatórias
-                Console.WriteLine("CHANCES RESTANTES: " + vidas);
-                Console.WriteLine("--------------------------------");
-                //Mostra o número de perguntas respondidas
-                Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
-                Console.WriteLine("--------------------------------");
-
-                Random random = new Random();
-                int index = random.Next(perguntas.Count);
-                var pergunta = perguntas[index];
-
-                Console.WriteLine(pergunta[0]);
-                Console.WriteLine("Qual a palavra correta?: ");
-                string respostaJogador = Console.ReadLine().Trim();
+                pontos++;
                 Console.Clear();
-
-                //verifica se a resposta está correta
-                if (respostaJogador == pergunta[1])
-                {
-                    pontos++;
-                    Console.Clear();
-                    Console.WriteLine("-------------------------");
-                    Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
-                    Console.WriteLine("-------------------------");
-                    Thread.Sleep(800);
-                }
-                else if (respostaJogador != pergunta[1])
-                {
-                    vidas--;
-                    Console.Clear();
-                    Console.WriteLine("--------------------------");
-                    Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
-                    Console.WriteLine("--------------------------");
-                    Thread.Sleep(800);
-                } 
-
-                if (vidas == 0)
-                {
-                    GameManager.Instance.titulo();
-                    Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
-                    break;
-                }
-
-                if (pontos == 10)
-                {
-                    Console.Clear();
-                    GameManager.Instance.titulo();
-                    Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
-                    break;
-                }
-                perguntas.RemoveAt(index);
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
+                Console.WriteLine("-------------------------");
+                Thread.Sleep(800);
             }
+            else
+            {
+                vidas--;
+                Console.Clear();
+                Console.WriteLine("--------------------------");
+                Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
+                Console.WriteLine("--------------------------");
+                Thread.Sleep(800);
+            }
+
+            if (vidas == 0)
+            {
+                GameManager.Instance.titulo();
+                Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
+            }
+
+            if (pontos == 10)
+            {
+                Console.Clear();
+                GameManager.Instance.titulo();
+                Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+            }
+            perguntas.RemoveAt(index);
+        }
+
+        public override void Draw()
+        {
+            Console.SetCursorPosition(0, 0);
+            //Pega Perguntas aleatórias
+            Console.WriteLine("CHANCES RESTANTES: " + vidas);
+            Console.WriteLine("--------------------------------");
+            //Mostra o número de perguntas respondidas
+            Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine(pergunta.categoria);
+            Console.WriteLine("Qual a palavra correta?: ");
+
+
+
         }
 
     }

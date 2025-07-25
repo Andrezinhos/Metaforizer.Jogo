@@ -6,7 +6,7 @@ namespace Aula1
     {
         static void Main()
         {
-            GameManager.Instance.Menu();
+            GameManager.Instance.Start();
             /*  while (jogoRolando)
               {
 

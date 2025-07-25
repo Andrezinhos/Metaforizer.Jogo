@@ -10,6 +10,9 @@ namespace Aula1
     {
         private Thread t;
         private bool ativo = true;
+        public bool visible = false;
+        public bool input = false;
+
 
         public void Run()
         {
@@ -24,12 +27,9 @@ namespace Aula1
                         LateUpdate();
                         Thread.Sleep(800);
                     }
-
                     OnDestroy();
-
                 }
             );
-
             t.Start();
         }
 
@@ -44,5 +44,6 @@ namespace Aula1
         public virtual void Update() { }
         public virtual void LateUpdate() { }
         public virtual void OnDestroy() { }
+        public abstract void Draw();
     }
 }

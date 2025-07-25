@@ -12,82 +12,83 @@ namespace Aula1
 
         public Hard()
         {
-            Awake();
+            Run();
         }
 
         public static Hard Instance => instancia ??= new Hard();
 
-        public void HardMode()
+        //Lista de perguntas
+        public List<(string conta, string q1, string q2, string q3, string resposta)> perguntas = new List<(string, string, string, string, string)> {
+            ("5 + 2", "8", "7", "6", "7"),
+            ("9 - 4", "5", "6", "7", "5"),
+            ("3 x 2", "5", "4", "6", "6"),
+            ("8 / 2", "3", "2", "4", "4"),
+            ("1 + 1 + 2", "3", "4", "6", "4"),
+            ("6 - 1 - 2", "6", "3", "4", "3"),
+            ("2 x 3 x 1", "4", "6", "5", "6"),
+            ("9 / 3 + 1", "5", "2", "4", "4"),
+            ("7 - 2 + 1", "5", "6", "7", "6"),
+            ("4 x 1 - 2", "5", "7", "2", "2"),
+            ("4 x 1 - 2", "5", "7", "2", "2")
+        };
+
+        public override void Update()
+        {
+            Draw();
+        }
+        public override void Draw()
         {
             bool jogoRolando = true;
 
             int pontos = 0;
 
-            //Lista de perguntas
 
-            var perguntas = new List<List<string>>() {
-            new List<string> {"5 + 2", "8", "7", "6", "7"},
-            new List<string> {"9 - 4", "5", "6", "7", "5"},
-            new List<string> {"3 x 2", "5", "4", "6", "6"},
-            new List<string> {"8 / 2", "3", "2", "4", "4"},
-            new List<string> {"1 + 1 + 2", "3", "4", "6", "4"},
-            new List<string> {"6 - 1 - 2", "6", "3", "4", "3"},
-            new List<string> {"2 x 3 x 1", "4", "6", "5", "6"},
-            new List<string> {"9 / 3 + 1", "5", "2", "4", "4"},
-            new List<string> {"7 - 2 + 1", "5", "6", "7", "6"},
-            new List<string> {"4 x 1 - 2", "5", "7", "2", "2"},
-            new List<string> {"4 x 1 - 2", "5", "7", "2", "2"}
-            };
 
-            while (jogoRolando)
+
+            //não tem chances nesse modo
+
+            //Mostra o número de perguntas respondidas
+            Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
+
+            Random random = new Random();
+            int index = random.Next(perguntas.Count);
+            var pergunta = perguntas[index];
+
+            Console.WriteLine(pergunta.conta);
+            Console.WriteLine(pergunta.q1);
+            Console.WriteLine(pergunta.q2);
+            Console.WriteLine(pergunta.q3);
+            Console.WriteLine("Qual a opção correta?: ");
+            string respostaJogador = Console.ReadLine().Trim();
+
+            //verifica se a resposta está correta
+            if (respostaJogador == pergunta.resposta)
             {
-                //não tem chances nesse modo
-
-                //Mostra o número de perguntas respondidas
-                Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
-
-                Random random = new Random();
-                int index = random.Next(perguntas.Count);
-                var pergunta = perguntas[index];
-
-                Console.WriteLine(pergunta[0]);
-                Console.WriteLine(pergunta[1]);
-                Console.WriteLine(pergunta[2]);
-                Console.WriteLine(pergunta[3]);
-                Console.WriteLine("Qual a opção correta?: ");
-                string respostaJogador = Console.ReadLine().Trim();
-
-                //verifica se a resposta está correta
-                if (respostaJogador == pergunta[4])
-                {
-                    Console.Clear();
-                    GameManager.Instance.titulo();
-                    Console.WriteLine("-------------------------");
-                    Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
-                    Console.WriteLine("-------------------------");
-                    Thread.Sleep(1000);
-                }
-                else if (respostaJogador != pergunta[4])
-                {
-                    Console.Clear();
-                    GameManager.Instance.titulo();
-                    Console.WriteLine("-------------------------");
-                    Console.WriteLine("ERRADO, VOCÊ NÃO É DIGNO!");
-                    Console.WriteLine("-------------------------");
-                    break;
-                }
-
-                if (pontos == 10)
-                {
-                    Console.Clear();
-                    GameManager.Instance.titulo();
-                    Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
-                    break;
-                }
-
-                perguntas.RemoveAt(index);
+                Console.Clear();
+                GameManager.Instance.titulo();
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
+                Console.WriteLine("-------------------------");
+                Thread.Sleep(1000);
             }
-        }
+            else
+            {
+                Console.Clear();
+                GameManager.Instance.titulo();
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("ERRADO, VOCÊ NÃO É DIGNO!");
+                Console.WriteLine("-------------------------");
+            }
 
+            if (pontos == 10)
+            {
+                Console.Clear();
+                GameManager.Instance.titulo();
+                Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+            }
+
+            perguntas.RemoveAt(index);
+        }
     }
 }
+
