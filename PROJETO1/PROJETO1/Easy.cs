@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Aula1
 {
@@ -12,16 +14,16 @@ namespace Aula1
         {
             Run();
         }
-
         public static Easy Instance => instancia ??= new Easy();
-
-        public string escolha = Console.ReadLine();
 
         int vidas = 5;
         int pontos = 0;
 
+        static Random random = new Random();
+        
+
         //Lista de perguntas
-        public List<(string categoria, string resposta)> perguntas = new List<(string, string)> {
+        public static List<(string categoria, string resposta)> perguntas = new List<(string, string)> {
             ( "ANIMAL DOMÉSTICO", "gato" ),
             ( "BRINQUEDO", "bola" ),
             ( "MÓVEL", "mesa" ),
@@ -34,17 +36,14 @@ namespace Aula1
             ( "TIPO DE PESSOA", "amigo" ),
         };
 
-        static Random random = new Random();
-        
+        public int index = 0;
 
         public override void Update()
         {
-            Draw();
+            if (!input) return;
 
-            int index = random.Next(perguntas.Count);
             var pergunta = perguntas[index];
-
-
+            
             string respostaJogador = Console.ReadLine().Trim();
             Console.Clear();
 
@@ -52,51 +51,61 @@ namespace Aula1
             if (respostaJogador == pergunta.resposta)
             {
                 pontos++;
-                Console.Clear();
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
                 Console.WriteLine("-------------------------");
-                Thread.Sleep(800);
             }
             else
             {
                 vidas--;
-                Console.Clear();
                 Console.WriteLine("--------------------------");
                 Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
                 Console.WriteLine("--------------------------");
-                Thread.Sleep(800);
             }
+
+            perguntas.RemoveAt(index);
 
             if (vidas == 0)
             {
                 GameManager.Instance.titulo();
                 Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
+                GameManager.Instance.facil.visible = false;
+                GameManager.Instance.facil.input = false;
             }
 
             if (pontos == 10)
             {
-                Console.Clear();
                 GameManager.Instance.titulo();
                 Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
             }
-            perguntas.RemoveAt(index);
+            else if (pontos < 10 && perguntas.Count <= 0)
+            {
+                Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
+                GameManager.Instance.facil.visible = false;
+                GameManager.Instance.facil.input = false;
+            }
+
+            if (perguntas.Count > 0)
+            {
+                int index = random.Next(perguntas.Count);
+            }
         }
 
         public override void Draw()
         {
+            if (perguntas.Count == 0) return;
+            var pergunta = perguntas[index];
+
             Console.SetCursorPosition(0, 0);
-            //Pega Perguntas aleatórias
-            Console.WriteLine("CHANCES RESTANTES: " + vidas);
-            Console.WriteLine("--------------------------------");
-            //Mostra o número de perguntas respondidas
-            Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
-            Console.WriteLine("--------------------------------");
-            Console.WriteLine(pergunta.categoria);
-            Console.WriteLine("Qual a palavra correta?: ");
+            Console.WriteLine($"""
+                CHANCES RESTANTES: {vidas}
+                --------------------------
+                PERGUNTAS RESPONDIDAS: {pontos}
+                --------------------------------
+                {pergunta.categoria}
 
-
-
+                Qual a palavra correta?: 
+                """);
         }
 
     }

@@ -11,10 +11,15 @@ namespace Aula1
         {
             Run();
         }
-
+        
         public static Medium Instance => instancia ??= new Medium();
 
-        public List<(string charada, string q1, string q2, string q3, string resposta)> perguntas = new List<(string, string, string, string, string)>{
+        int vidas = 3;
+        int pontos = 0;
+
+        static Random random = new Random();
+
+        public static List<(string charada, string q1, string q2, string q3, string resposta)> perguntas = new List<(string, string, string, string, string)>{
             ("Eu fico escondido, mas posso ser visto, se quiser me achar olhe no espelho", "1 - Olho", "2 - Orelha", "3 - Nariz", "1"),
             ("Ando sem pés, falo sem voz, estou em todo lugar, mas não deixo pegadas", "1 - Luz", "2 - Som", "3 - Vento", "3"),
             ("Deito-me no papel como tinta que pensa, e dou forma ao que só existia no silêncio", "1 - Borracha", "2 - Caneta", "3 - Livro", "2"),
@@ -27,81 +32,88 @@ namespace Aula1
             ("Sou rei que morre a cada instante, mas governa tudo o que é. Nunca volto, mas deixo marcas nos tronos da alma", "1 - Passado", "2 - Tempo", "3 - Destino", "2")
         };
 
+        int index = 0;
+
         public override void Update()
         {
-            Draw();
-        }
-        public override void Draw()
-        {
-            bool jogoRolando = true;
+            if (!input) return;
 
-            int vidas = 3;
-            int pontos = 0;
+            var pergunta = perguntas[index];
 
-            //Lista de perguntas
+            string respostaJogador = Console.ReadLine();
+            Console.Clear();
 
             
-
-            while (jogoRolando)
+            
+            //verifica se a resposta está correta
+            if (respostaJogador == pergunta.resposta)
             {
+                pontos++;
+                Console.WriteLine("--------------------------");
+                Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
+                Console.WriteLine("-------------------------");
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                vidas--;
+                Console.WriteLine("--------------------------");
+                Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
+                Console.WriteLine("--------------------------");
+                Thread.Sleep(1000);
+            }
 
-                //Pega Perguntas aleatórias
-                Console.WriteLine("CHANCES RESTANTES: " + vidas);
-                Console.WriteLine("----------------------");
-                //Mostra o número de perguntas respondidas
-                Console.WriteLine("PERGUNTAS RESPONDIDAS: " + pontos);
-                Console.WriteLine("----------------------");
+            perguntas.RemoveAt(index);
 
-                Random random = new Random();
+            if (vidas == 0)
+            {
+                GameManager.Instance.titulo();
+                Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
+                GameManager.Instance.facil.visible = false;
+                GameManager.Instance.facil.input = false;
+            }
+
+            if (pontos == 10)
+            {
+                GameManager.Instance.titulo();
+                Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                GameManager.Instance.facil.visible = false;
+                GameManager.Instance.facil.input = false;
+            }
+
+            if (perguntas.Count > 0)
+            {
                 int index = random.Next(perguntas.Count);
-                var pergunta = perguntas[index];
-
-                Console.WriteLine(pergunta.charada);
-                Console.WriteLine(pergunta.q1);
-                Console.WriteLine(pergunta.q2);
-                Console.WriteLine(pergunta.q3);
-                Console.WriteLine("Qual a opção correta?: ");
-                string respostaJogador = Console.ReadLine().Trim();
-                Console.Clear();
-
-                //verifica se a resposta está correta
-                if (respostaJogador == pergunta.resposta)
-                {
-                    pontos++;
-                    Console.Clear();
-                    Console.WriteLine("--------------------------");
-                    Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
-                    Console.WriteLine("-------------------------");
-                    Thread.Sleep(800);
-                }
-                else 
-                {
-                    vidas--;
-                    Console.Clear();
-                    Console.WriteLine("--------------------------");
-                    Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
-                    Console.WriteLine("--------------------------");
-                    Thread.Sleep(800);
-                }
-
-                if (vidas == 0)
-                {
-                    GameManager.Instance.titulo();
-                    Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
-                    break;
-                }
-
-                if (pontos == 10)
-                {
-                    Console.Clear();
-                    GameManager.Instance.titulo();
-                    Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
-                    break;
-                }
-
-                perguntas.RemoveAt(index);
+            }
+            else if (pontos < 0 &&  perguntas.Count > 0)
+            {
+                Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
+                GameManager.Instance.facil.visible = false;
+                GameManager.Instance.facil.input = false;
             }
         }
 
+        public override void Draw()
+        {
+            if (perguntas.Count == 0) return;
+            var pergunta = perguntas[index];
+
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine($"""
+                CHANCES RESTANTES: {vidas}
+                --------------------------
+                PERGUNTAS RESPONDIDAS: {pontos}
+                --------------------------------
+                {pergunta.charada}
+                {pergunta.q1}
+                {pergunta.q2}
+                {pergunta.q3}
+                Qual a opção correta?:  
+                """);
+
+        }
+
     }
+
 }
+

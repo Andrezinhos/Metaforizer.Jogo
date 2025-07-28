@@ -19,17 +19,18 @@ namespace Aula1
 
         public override void Update()
         {
-            string escolha = Console.ReadLine();
+            if (!input) return;
 
+            string escolha = Console.ReadLine();
             switch (escolha)
             {
                 case "1":
-                    Console.Clear();
-                    GameManager.Instance.nemo.visible = false;
-                    GameManager.Instance.nemo.input = false;
                     GameManager.Instance.mod = Modo.Instance;
                     GameManager.Instance.mod.visible = true;
-                    Stop();
+                    GameManager.Instance.mod.input = true;
+
+                    GameManager.Instance.nemo.visible = false;
+                    GameManager.Instance.nemo.input = false;
                     break;
                 case "2":
                     break;
@@ -41,6 +42,7 @@ namespace Aula1
         }
         public override void Draw()
         {
+            Console.Clear();
             Console.SetCursorPosition(0, 0);
             GameManager.Instance.titulo();
             Console.WriteLine("----------------------");
