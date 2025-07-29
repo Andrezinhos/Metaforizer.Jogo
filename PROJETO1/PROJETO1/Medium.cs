@@ -42,43 +42,42 @@ namespace Aula1
 
             string respostaJogador = Console.ReadLine();
             Console.Clear();
+            Console.WriteLine("--------------------------");
 
-            
-            
             //verifica se a resposta está correta
             if (respostaJogador == pergunta.resposta)
             {
                 pontos++;
-                Console.WriteLine("--------------------------");
                 Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
-                Console.WriteLine("-------------------------");
-                Thread.Sleep(1000);
             }
             else
             {
                 vidas--;
-                Console.WriteLine("--------------------------");
                 Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
-                Console.WriteLine("--------------------------");
-                Thread.Sleep(1000);
+                
             }
 
+            Console.WriteLine("--------------------------");
+            Thread.Sleep(1000);
+            Console.Clear();
             perguntas.RemoveAt(index);
 
             if (vidas == 0)
             {
-                GameManager.Instance.titulo();
                 Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
-                GameManager.Instance.facil.visible = false;
-                GameManager.Instance.facil.input = false;
+                visible = false;
+                input = false;
+                GameManager.Instance.mod.visible = true;
+                GameManager.Instance.mod.input = true;
             }
 
             if (pontos == 10)
             {
-                GameManager.Instance.titulo();
                 Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
-                GameManager.Instance.facil.visible = false;
-                GameManager.Instance.facil.input = false;
+                visible = false;
+                input = false;
+                GameManager.Instance.mod.visible = true;
+                GameManager.Instance.mod.input = true;
             }
 
             if (perguntas.Count > 0)
@@ -88,8 +87,10 @@ namespace Aula1
             else if (pontos < 0 &&  perguntas.Count > 0)
             {
                 Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
-                GameManager.Instance.facil.visible = false;
-                GameManager.Instance.facil.input = false;
+                visible = false;
+                input = false;
+                GameManager.Instance.mod.visible = true;
+                GameManager.Instance.mod.input = true;
             }
         }
 
@@ -98,7 +99,7 @@ namespace Aula1
             if (perguntas.Count == 0) return;
             var pergunta = perguntas[index];
 
-            Console.SetCursorPosition(0, 0);
+            Console.Clear();
             Console.WriteLine($"""
                 CHANCES RESTANTES: {vidas}
                 --------------------------

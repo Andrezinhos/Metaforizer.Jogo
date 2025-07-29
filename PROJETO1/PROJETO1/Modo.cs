@@ -53,10 +53,8 @@ namespace Aula1
                     GameManager.Instance.nemo.visible = true;
                     GameManager.Instance.nemo.input = true;
 
-                    GameManager.Instance.facil.visible = false;
-                    GameManager.Instance.medio.visible = false;
-                    GameManager.Instance.dificil.visible = false;
-                    GameManager.Instance.mod.visible = false;
+                    visible = false;
+                    input = false;
                     break;
             }
         }

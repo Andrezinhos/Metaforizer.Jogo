@@ -39,11 +39,6 @@ namespace Aula1
             nemo.input = true;
         }
 
-        public void Creditos()
-        {
-            
-        }
-
         public void titulo()
         {
             string title = @"
@@ -65,6 +60,7 @@ namespace Aula1
             if (medio != null && medio.visible) medio.Draw();
             if (dificil != null && dificil.visible) dificil.Draw();
             if (nemo != null && nemo.visible) nemo.Draw();
+            if (cred != null && cred.visible) cred.Draw();
             if (mod != null && mod.visible) mod.Draw();
         } 
     }

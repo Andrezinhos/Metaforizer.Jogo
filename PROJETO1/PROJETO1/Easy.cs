@@ -43,7 +43,7 @@ namespace Aula1
             if (!input) return;
 
             var pergunta = perguntas[index];
-            
+
             string respostaJogador = Console.ReadLine().Trim();
             Console.Clear();
 
@@ -61,16 +61,19 @@ namespace Aula1
                 Console.WriteLine("--------------------------");
                 Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
                 Console.WriteLine("--------------------------");
+                
             }
 
+            Thread.Sleep(1000);
+            Console.Clear();
             perguntas.RemoveAt(index);
 
             if (vidas == 0)
             {
                 GameManager.Instance.titulo();
                 Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
-                GameManager.Instance.facil.visible = false;
-                GameManager.Instance.facil.input = false;
+                visible = false;
+                input = false;
             }
 
             if (pontos == 10)
@@ -81,8 +84,8 @@ namespace Aula1
             else if (pontos < 10 && perguntas.Count <= 0)
             {
                 Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
-                GameManager.Instance.facil.visible = false;
-                GameManager.Instance.facil.input = false;
+                visible = false;
+                input = false;
             }
 
             if (perguntas.Count > 0)
@@ -96,7 +99,7 @@ namespace Aula1
             if (perguntas.Count == 0) return;
             var pergunta = perguntas[index];
 
-            Console.SetCursorPosition(0, 0);
+            Console.Clear();
             Console.WriteLine($"""
                 CHANCES RESTANTES: {vidas}
                 --------------------------

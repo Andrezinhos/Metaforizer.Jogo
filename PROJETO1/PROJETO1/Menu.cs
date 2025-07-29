@@ -33,10 +33,17 @@ namespace Aula1
                     GameManager.Instance.nemo.input = false;
                     break;
                 case "2":
+                    GameManager.Instance.cred = Creditos.Instance;
+                    GameManager.Instance.cred.visible = true;
+                    GameManager.Instance.cred.input = true;
+
+                    GameManager.Instance.nemo.visible = false;
+                    GameManager.Instance.nemo.input = false;
                     break;
                 case "3":
                     Console.Clear();
-                    Stop();
+                    visible = false;
+                    input = false;
                     break;
             }
         }
@@ -45,12 +52,14 @@ namespace Aula1
             Console.Clear();
             Console.SetCursorPosition(0, 0);
             GameManager.Instance.titulo();
-            Console.WriteLine("----------------------");
-            Console.WriteLine("1 - Iniciar Jogo");
-            Console.WriteLine("2 - Créditos");
-            Console.WriteLine("3 - Sair");
-            Console.WriteLine("----------------------");
-            Console.WriteLine("Escolha uma opção:");
+            Console.WriteLine("""
+                ----------------------
+                1 - Iniciar Jogo
+                2 - Créditos
+                3 - Sair
+                ----------------------
+                Escolha uma opção:
+                """);
         }
     }
 }

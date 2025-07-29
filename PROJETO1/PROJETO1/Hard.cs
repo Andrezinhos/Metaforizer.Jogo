@@ -46,36 +46,38 @@ namespace Aula1
             var pergunta = perguntas[index];
 
             string respostaJogador = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("-------------------------");
 
             //verifica se a resposta está correta
             if (respostaJogador == pergunta.resposta)
             {
-                GameManager.Instance.titulo();
-                Console.WriteLine("-------------------------");
                 Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
-                Console.WriteLine("-------------------------");
-                Thread.Sleep(1000);
             }
             else
             {
-                GameManager.Instance.titulo();
-                Console.WriteLine("-------------------------");
                 Console.WriteLine("ERRADO, VOCÊ NÃO É DIGNO!");
-                Console.WriteLine("-------------------------");
             }
 
+            Console.WriteLine("-------------------------");
+            Thread.Sleep(1500);
+            Console.Clear();
             perguntas.RemoveAt(index);
 
             if (pontos == 10)
             {
                 GameManager.Instance.titulo();
                 Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                GameManager.Instance.mod.visible = true;
+                GameManager.Instance.mod.input = true;
             }
             else if (pontos < 10 && perguntas.Count <= 0)
             {
                 Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
-                GameManager.Instance.facil.visible = false;
-                GameManager.Instance.facil.input = false;
+                visible = false;
+                input = false;
+                GameManager.Instance.mod.visible = true;
+                GameManager.Instance.mod.input = true;
             }
             
             if (perguntas.Count > 0)
@@ -88,7 +90,7 @@ namespace Aula1
             if (perguntas.Count == 0) return;
             var pergunta = perguntas[index];
 
-            Console.SetCursorPosition(0, 0);
+            Console.Clear();
             Console.WriteLine($"""
                 --------------------------
                 PERGUNTAS RESPONDIDAS: {pontos}
