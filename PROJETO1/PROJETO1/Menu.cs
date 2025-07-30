@@ -44,21 +44,23 @@ namespace Aula1
                     Console.Clear();
                     visible = false;
                     input = false;
+                    Stop();
                     break;
             }
         }
         public override void Draw()
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.SetCursorPosition(0, 0);
             GameManager.Instance.titulo();
             Console.WriteLine("""
                 ----------------------
-                1 - Iniciar Jogo
-                2 - Créditos
-                3 - Sair
+                1 - INICIAR JOGO
+                2 - CRÉDITOS
+                3 - SAIR
                 ----------------------
-                Escolha uma opção:
+                ESCOLHA UMA OPÇÃO:
                 """);
         }
     }

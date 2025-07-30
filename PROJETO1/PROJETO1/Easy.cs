@@ -46,29 +46,26 @@ namespace Aula1
 
             string respostaJogador = Console.ReadLine().Trim();
             Console.Clear();
+            Console.WriteLine("-------------------------");
 
             //verifica se a resposta está correta
             if (respostaJogador == pergunta.resposta)
             {
                 pontos++;
-                Console.WriteLine("-------------------------");
                 Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
-                Console.WriteLine("-------------------------");
             }
             else
             {
                 vidas--;
-                Console.WriteLine("--------------------------");
                 Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
-                Console.WriteLine("--------------------------");
-                
             }
 
-            Thread.Sleep(1000);
+            Console.WriteLine("-------------------------");
+            Thread.Sleep(1500);
             Console.Clear();
             perguntas.RemoveAt(index);
 
-            if (vidas == 0)
+            if (vidas <= 0)
             {
                 GameManager.Instance.titulo();
                 Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
@@ -80,12 +77,19 @@ namespace Aula1
             {
                 GameManager.Instance.titulo();
                 Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                visible = false;
+                input = false;
+                GameManager.Instance.mod.visible = true;
+                GameManager.Instance.mod.input = true;
             }
             else if (pontos < 10 && perguntas.Count <= 0)
             {
+                GameManager.Instance.titulo();
                 Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
                 visible = false;
                 input = false;
+                GameManager.Instance.mod.visible = true;
+                GameManager.Instance.mod.input = true;
             }
 
             if (perguntas.Count > 0)
@@ -100,9 +104,11 @@ namespace Aula1
             var pergunta = perguntas[index];
 
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"""
+                ================================
                 CHANCES RESTANTES: {vidas}
-                --------------------------
+                --------------------------------
                 PERGUNTAS RESPONDIDAS: {pontos}
                 --------------------------------
                 {pergunta.categoria}

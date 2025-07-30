@@ -61,18 +61,22 @@ namespace Aula1
         public override void Draw()
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.SetCursorPosition(0, 0);
             GameManager.Instance.titulo();
-            Console.WriteLine("Escolha a dificuldade: ");
-            Console.WriteLine("-----------------------");
-            Console.WriteLine("Fácil - 1");
-            Console.WriteLine("-----------------------");
-            Console.WriteLine("Médio - 2");
-            Console.WriteLine("-----------------------");
-            Console.WriteLine("Difícil - 3");
-            Console.WriteLine("-----------------------");
-            Console.WriteLine("Voltar - 4");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("""
+                ESCOLHA A DIFICULDADE: 
+                -----------------------
+                FÁCIL - 1
+                -----------------------
+                MÉDIO - 2
+                -----------------------
+                DIFÍCIL - 3
+                -----------------------
+                SAIR - 4
+                -----------------------
+                """);
+            
         }
     }
 }

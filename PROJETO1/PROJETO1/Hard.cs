@@ -68,6 +68,8 @@ namespace Aula1
             {
                 GameManager.Instance.titulo();
                 Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                visible = false;
+                input = false;
                 GameManager.Instance.mod.visible = true;
                 GameManager.Instance.mod.input = true;
             }
@@ -91,11 +93,13 @@ namespace Aula1
             var pergunta = perguntas[index];
 
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"""
-                --------------------------
+                --------------------------------
                 PERGUNTAS RESPONDIDAS: {pontos}
                 --------------------------------
                 {pergunta.conta}
+                ================================
                 {pergunta.q1}
                 {pergunta.q2}
                 {pergunta.q3}

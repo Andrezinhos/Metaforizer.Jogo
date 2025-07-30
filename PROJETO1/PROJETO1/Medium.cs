@@ -54,15 +54,14 @@ namespace Aula1
             {
                 vidas--;
                 Console.WriteLine("ERRADO, PERDEU UMA CHANCE!");
-                
             }
 
             Console.WriteLine("--------------------------");
-            Thread.Sleep(1000);
+            Thread.Sleep(1500);
             Console.Clear();
             perguntas.RemoveAt(index);
 
-            if (vidas == 0)
+            if (vidas <= 0)
             {
                 Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
                 visible = false;
@@ -84,7 +83,7 @@ namespace Aula1
             {
                 int index = random.Next(perguntas.Count);
             }
-            else if (pontos < 0 &&  perguntas.Count > 0)
+            else if (pontos < 10 &&  perguntas.Count > 0)
             {
                 Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
                 visible = false;
@@ -100,9 +99,11 @@ namespace Aula1
             var pergunta = perguntas[index];
 
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($"""
+                ================================
                 CHANCES RESTANTES: {vidas}
-                --------------------------
+                --------------------------------
                 PERGUNTAS RESPONDIDAS: {pontos}
                 --------------------------------
                 {pergunta.charada}
