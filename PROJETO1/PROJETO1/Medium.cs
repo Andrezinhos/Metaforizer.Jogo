@@ -63,7 +63,11 @@ namespace Aula1
 
             if (vidas <= 0)
             {
-                Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
+                Console.WriteLine("""
+                    ====================================
+                    ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!
+                    ====================================
+                """);
                 visible = false;
                 input = false;
                 GameManager.Instance.mod.visible = true;
@@ -72,9 +76,11 @@ namespace Aula1
 
             if (pontos == 10)
             {
-                Console.WriteLine("====================================");
-                Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
-                Console.WriteLine("====================================");
+                Console.WriteLine("""
+                    ====================================
+                    PARABÉNS, VOCÊ DERROTOU METAFORIZER!
+                    ====================================
+                """);
                 visible = false;
                 input = false;
                 GameManager.Instance.mod.visible = true;
@@ -83,9 +89,11 @@ namespace Aula1
 
             else if (pontos < 10 && perguntas.Count > 0)
             {
-                Console.WriteLine("====================================");
-                Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
-                Console.WriteLine("====================================");
+                Console.WriteLine("""
+                    ====================================
+                    BOA, MAS FALTOU ALGUMAS PERGUNTAS
+                    ====================================
+                """);
                 visible = false;
                 input = false;
                 GameManager.Instance.mod.visible = true;

@@ -55,7 +55,11 @@ namespace Aula1
             }
             else
             {
-                Console.WriteLine("ERRADO, VOCÊ NÃO É DIGNO!");
+                Console.WriteLine("""
+                    ====================================
+                    ERRADO, VOCÊ NÃO É DIGNO!
+                    ====================================
+                """);
                 visible = false;
                 input = false;
                 GameManager.Instance.mod.visible = true;
@@ -69,9 +73,11 @@ namespace Aula1
 
             if (pontos == 10)
             {
-                Console.WriteLine("====================================");
-                Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
-                Console.WriteLine("====================================");
+                Console.WriteLine("""
+                    ====================================
+                    PARABÉNS, VOCÊ DERROTOU METAFORIZER!
+                    ====================================
+                """);
                 visible = false;
                 input = false;
                 GameManager.Instance.mod.visible = true;
