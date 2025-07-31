@@ -32,10 +32,12 @@ namespace Aula1
         public override void Draw()
         {
             Console.Clear();
-            Console.SetCursorPosition(0, 0);
+            GameManager.Instance.titulo();
             Console.WriteLine("""
-                Jogo criado por André
-                Pressione ESC para sair
+                =========================
+                JOGO CRIADO POR ANDRÉ
+                =========================
+                PRESSIONE ESC PARA VOLTAR
                 """);
 
         }

@@ -61,14 +61,15 @@ namespace Aula1
             }
 
             Console.WriteLine("-------------------------");
-            Thread.Sleep(1500);
+            Thread.Sleep(800);
             Console.Clear();
             perguntas.RemoveAt(index);
 
             if (vidas <= 0)
             {
-                GameManager.Instance.titulo();
+                Console.WriteLine("====================================");
                 Console.WriteLine("ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!");
+                Console.WriteLine("====================================");
                 visible = false;
                 input = false;
             }
@@ -76,7 +77,9 @@ namespace Aula1
             if (pontos == 10)
             {
                 GameManager.Instance.titulo();
+                Console.WriteLine("====================================");
                 Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                Console.WriteLine("====================================");
                 visible = false;
                 input = false;
                 GameManager.Instance.mod.visible = true;
@@ -85,7 +88,9 @@ namespace Aula1
             else if (pontos < 10 && perguntas.Count <= 0)
             {
                 GameManager.Instance.titulo();
+                Console.WriteLine("====================================");
                 Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
+                Console.WriteLine("====================================");
                 visible = false;
                 input = false;
                 GameManager.Instance.mod.visible = true;
@@ -94,7 +99,7 @@ namespace Aula1
 
             if (perguntas.Count > 0)
             {
-                int index = random.Next(perguntas.Count);
+                index = random.Next(perguntas.Count);
             }
         }
 
@@ -102,7 +107,6 @@ namespace Aula1
         {
             if (perguntas.Count == 0) return;
             var pergunta = perguntas[index];
-
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"""

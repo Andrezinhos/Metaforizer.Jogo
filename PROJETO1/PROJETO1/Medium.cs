@@ -57,7 +57,7 @@ namespace Aula1
             }
 
             Console.WriteLine("--------------------------");
-            Thread.Sleep(1500);
+            Thread.Sleep(800);
             Console.Clear();
             perguntas.RemoveAt(index);
 
@@ -72,7 +72,20 @@ namespace Aula1
 
             if (pontos == 10)
             {
+                Console.WriteLine("====================================");
                 Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                Console.WriteLine("====================================");
+                visible = false;
+                input = false;
+                GameManager.Instance.mod.visible = true;
+                GameManager.Instance.mod.input = true;
+            }
+
+            else if (pontos < 10 && perguntas.Count > 0)
+            {
+                Console.WriteLine("====================================");
+                Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
+                Console.WriteLine("====================================");
                 visible = false;
                 input = false;
                 GameManager.Instance.mod.visible = true;
@@ -81,23 +94,15 @@ namespace Aula1
 
             if (perguntas.Count > 0)
             {
-                int index = random.Next(perguntas.Count);
+               index = random.Next(perguntas.Count);
             }
-            else if (pontos < 10 &&  perguntas.Count > 0)
-            {
-                Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
-                visible = false;
-                input = false;
-                GameManager.Instance.mod.visible = true;
-                GameManager.Instance.mod.input = true;
-            }
+
         }
 
         public override void Draw()
         {
             if (perguntas.Count == 0) return;
             var pergunta = perguntas[index];
-
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($"""

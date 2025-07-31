@@ -18,10 +18,6 @@ namespace Aula1
 
         public static Hard Instance => instancia ??= new Hard();
 
-        int pontos = 0;
-
-        static Random random = new Random();
-
         //Lista de perguntas
         public List<(string conta, string q1, string q2, string q3, string resposta)> perguntas = new List<(string, string, string, string, string)> {
             ("5 + 2", "8", "7", "6", "7"),
@@ -37,6 +33,8 @@ namespace Aula1
             ("4 x 1 - 2", "5", "7", "2", "2")
         };
 
+        int pontos = 0;
+        static Random random = new Random();
         int index = 0;
 
         public override void Update()
@@ -52,46 +50,44 @@ namespace Aula1
             //verifica se a resposta está correta
             if (respostaJogador == pergunta.resposta)
             {
+                pontos++;
                 Console.WriteLine("CORRETO, PRÓXIMA PERGUNTA");
             }
             else
             {
                 Console.WriteLine("ERRADO, VOCÊ NÃO É DIGNO!");
+                visible = false;
+                input = false;
+                GameManager.Instance.mod.visible = true;
+                GameManager.Instance.mod.input = true;
             }
 
             Console.WriteLine("-------------------------");
-            Thread.Sleep(1500);
+            Thread.Sleep(800);
             Console.Clear();
             perguntas.RemoveAt(index);
 
             if (pontos == 10)
             {
-                GameManager.Instance.titulo();
+                Console.WriteLine("====================================");
                 Console.WriteLine("PARABÉNS, VOCÊ DERROTOU METAFORIZER!");
+                Console.WriteLine("====================================");
                 visible = false;
                 input = false;
                 GameManager.Instance.mod.visible = true;
                 GameManager.Instance.mod.input = true;
             }
-            else if (pontos < 10 && perguntas.Count <= 0)
-            {
-                Console.WriteLine("BOA, MAS FALTOU ALGUMAS PERGUNTAS");
-                visible = false;
-                input = false;
-                GameManager.Instance.mod.visible = true;
-                GameManager.Instance.mod.input = true;
-            }
-            
+
             if (perguntas.Count > 0)
             {
-                int index = random.Next(perguntas.Count);
+                index = random.Next(perguntas.Count);
             }
         }
+
         public override void Draw()
         {
             if (perguntas.Count == 0) return;
             var pergunta = perguntas[index];
-
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"""
@@ -105,7 +101,6 @@ namespace Aula1
                 {pergunta.q3}
                 Qual a opção correta?:  
                 """);
-
         }
     }
 }

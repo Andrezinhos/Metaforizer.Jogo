@@ -62,7 +62,6 @@ namespace Aula1
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.SetCursorPosition(0, 0);
             GameManager.Instance.titulo();
             Console.WriteLine("""
                 ESCOLHA A DIFICULDADE: 
