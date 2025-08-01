@@ -90,7 +90,7 @@ namespace Aula1
                 GameManager.Instance.mod.visible = true;
                 GameManager.Instance.mod.input = true;
             }
-            else if (pontos < 10 && perguntas.Count <= 0)
+            else if (perguntas.Count <= 0 && pontos < 10)
             {
                 Console.WriteLine("""
                     ====================================
