@@ -56,9 +56,9 @@ namespace Aula1
             else
             {
                 Console.WriteLine("""
-                    ====================================
-                    ERRADO, VOCÊ NÃO É DIGNO!
-                    ====================================
+                ====================================
+                ERRADO, VOCÊ NÃO É DIGNO!
+                ====================================
                 """);
                 visible = false;
                 input = false;
@@ -74,9 +74,9 @@ namespace Aula1
             if (pontos == 10)
             {
                 Console.WriteLine("""
-                    ====================================
-                    PARABÉNS, VOCÊ DERROTOU METAFORIZER!
-                    ====================================
+                ====================================
+                PARABÉNS, VOCÊ DERROTOU METAFORIZER!
+                ====================================
                 """);
                 visible = false;
                 input = false;

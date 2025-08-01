@@ -64,9 +64,9 @@ namespace Aula1
             if (vidas <= 0)
             {
                 Console.WriteLine("""
-                    ====================================
-                    ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!
-                    ====================================
+                ====================================
+                ACABOU SUAS CHANCES, VOCÊ NÃO É DIGNO!
+                ====================================
                 """);
                 visible = false;
                 input = false;
@@ -77,9 +77,9 @@ namespace Aula1
             if (pontos == 10)
             {
                 Console.WriteLine("""
-                    ====================================
-                    PARABÉNS, VOCÊ DERROTOU METAFORIZER!
-                    ====================================
+                ====================================
+                PARABÉNS, VOCÊ DERROTOU METAFORIZER!
+                ====================================
                 """);
                 visible = false;
                 input = false;
@@ -87,12 +87,12 @@ namespace Aula1
                 GameManager.Instance.mod.input = true;
             }
 
-            else if (perguntas.Count > 0 && pontos < 10)
+            else if (perguntas.Count <= 0 && pontos < 10)
             {
                 Console.WriteLine("""
-                    ====================================
-                    BOA, MAS FALTOU ALGUMAS PERGUNTAS
-                    ====================================
+                ====================================
+                BOA, MAS FALTOU ALGUMAS PERGUNTAS
+                ====================================
                 """);
                 visible = false;
                 input = false;

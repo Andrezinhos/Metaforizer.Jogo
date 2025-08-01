@@ -6,6 +6,8 @@ namespace Aula1
     {
         static void Main()
         {
+            Console.CursorVisible = false;
+
             GameManager.Instance.Start();
             /*  while (jogoRolando)
               {

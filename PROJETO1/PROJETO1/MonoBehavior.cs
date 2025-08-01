@@ -25,7 +25,7 @@ namespace Aula1
                     {
                         Update();
                         LateUpdate();
-                        Thread.Sleep(800);
+                        Thread.Sleep(550);
                     }
                     OnDestroy();
                 }
